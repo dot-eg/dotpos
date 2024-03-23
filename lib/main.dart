@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(0, 146, 159, 168)),
         ),
         home: MyHomePage(),
       ),
@@ -66,43 +66,50 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = FavoritesPage();
         break;
+      case 2:
+        page = Placeholder();
+        break;
+      case 3:
+        page = Placeholder();
+        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
 }
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
-          body: Row(
-            children: [
-              SafeArea(
-                child: NavigationRail(
-                  extended: constraints.maxWidth >= 600,
-                  destinations: [
-                    NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      label: Text('Home'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.favorite),
-                      label: Text('Favorites'),
-                    ),
-                  ],
-                  selectedIndex: selectedIndex,
-                  onDestinationSelected: (value) {
-                    setState(() {
-                      selectedIndex = value;
-                  });
-                },
-                ),
+          body: Container(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            child: page,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
               ),
-              Expanded(
-                child: Container(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: page,
-                ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.history), 
+                label: "Transactions History",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.logout),
+                label: 'Log Out',
               ),
             ],
-          ),
+            currentIndex: selectedIndex,
+            fixedColor: Colors.black,
+            unselectedItemColor: Colors.black,
+            onTap:(value) {
+              setState(() {
+                selectedIndex = value;
+            });
+          },     
+        ),
         );
       }
     );
