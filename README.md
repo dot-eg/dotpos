@@ -1,16 +1,15 @@
-# dotpos_1
+# dot. - POS Management System
 
-A new Flutter project.
+A Flutter project.
+Designed and built in the New Administrative Capital with ♡
 
-## Getting Started
+Integrative Project
+TKH - Coventry University Egypt 
+Computer Science Level 4 - S02
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Team Members:
+1. Omar Elfiki
+2. Ali Nasr
+3. Wassima Elsheikh
+4. Mohamad Adel
+5. Ahmad Nouier
