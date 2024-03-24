@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: 'dot.',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(0, 146, 159, 168)),
@@ -61,15 +61,18 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = GeneratorPage();
+        page = ProductHomePage();
         break;
       case 1:
-        page = FavoritesPage();
+        page = HistoryPage();
         break;
       case 2:
         page = Placeholder();
         break;
       case 3:
+        page = Placeholder();
+        break;
+      case 4:
         page = Placeholder();
         break;
       default:
@@ -91,6 +94,10 @@ class _MyHomePageState extends State<MyHomePage> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.history), 
                 label: "Transactions History",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.inventory),
+                label: 'Inventory',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
@@ -117,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 
-class GeneratorPage extends StatelessWidget {
+class ProductHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -130,33 +137,38 @@ class GeneratorPage extends StatelessWidget {
       icon = Icons.favorite_border;
     }
 
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Products', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,),
+          ),
+        automaticallyImplyLeading: false,
+    ),
+
+    body: GridView.count(
+  crossAxisCount: 6,// number of columns
+  childAspectRatio: 2,
+  mainAxisSpacing: 20, 
+  children: List.generate(54, (index) { // replace 10 with the number of items you want
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BigCard(pair: pair),
-          SizedBox(height: 20),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Product $index',
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
+              // Add more widgets here for each product
             ],
           ),
-        ],
+        ),
       ),
+    );
+  }),
+),
     );
   }
 }
@@ -187,14 +199,14 @@ class BigCard extends StatelessWidget {
   }
 }
 
-class FavoritesPage extends StatelessWidget{
+class HistoryPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
     if (appState.favorites.isEmpty) {
       return Center(
-        child: Text('No favorites yet'),
+        child: Text('No history yet'),
       );
     }
     return ListView(
