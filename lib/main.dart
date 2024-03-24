@@ -529,7 +529,7 @@ class ProductHomePage extends StatelessWidget {
         ],
     ),
 )
-    );
+    )
   }
 }
 
