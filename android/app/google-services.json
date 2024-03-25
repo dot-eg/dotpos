@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "571963431868",
+    "project_id": "dotpos-eg",
+    "storage_bucket": "dotpos-eg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571963431868:android:bc11524cd743e8e6d3a9b9",
+        "android_client_info": {
+          "package_name": "com.example.dotpos_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPFD1JJlmfx826nGYqhB-sjmFkRzD0yyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
