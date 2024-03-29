@@ -6,12 +6,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-  //WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp(
-    //options: DefaultFirebaseOptions.currentPlatform,
-  //);
+  WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
  runApp(MyApp());
- //await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+ await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 }
 
 
@@ -132,6 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class LoginScreenPage extends StatelessWidget {
+  final _auth = FirebaseAuth.instance;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -219,6 +222,18 @@ class LoginScreenPage extends StatelessWidget {
                                             borderRadius: BorderRadius.circular(20),
                                         ),
                                     ),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Username',
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter your username';
+                                        }
+                                        return null;
+                                      },
+                                    ),
                                 ),
                             ),
                             Positioned(
@@ -235,8 +250,21 @@ class LoginScreenPage extends StatelessWidget {
                                                 strokeAlign: BorderSide.strokeAlignOutside,
                                                 color: Color(0xFFC4BBBB),
                                             ),
-                                            borderRadius: BorderRadius.circular(20),
+                                            borderRadius: BorderRadius.circular(10),
                                         ),
+                                    ),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Password',
+                                      ),
+                                      obscureText: true,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter your password';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                 ),
                             ),
@@ -304,21 +332,47 @@ class LoginScreenPage extends StatelessWidget {
                 ),
             ),
             Positioned(
-                left: 1169,
+                left: 1125,
                 top: 437,
                 child: SizedBox(
-                    width: 84,
+                    width: 150,
                     height: 30,
-                    child: Text(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                          try {
+                            final user = await _auth.signInWithEmailAndPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            );
+                            if (user != null) {
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => ProductHomePage(),
+                                ),
+                              );
+                            }
+                          } catch (e) {
+                            print(e);
+                          }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child:Text(
                         'Log in',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25,
+                            fontSize: 20,
                             fontFamily: 'Hind Kochi',
                             fontWeight: FontWeight.w500,
                             height: 0,
                         ),
+                      ),
                     ),
                 ),
             ),
@@ -399,7 +453,7 @@ class ProductHomePage extends StatelessWidget {
             Positioned(
                 left: 61,
                 top: 71,
-                child: Container(
+                child: SizedBox(
                     width: 802,
                     height: 826,
                     child: Stack(
@@ -654,7 +708,7 @@ class ProductHomePage extends StatelessWidget {
             Positioned(
                 left: 974,
                 top: 840,
-                child: Container(
+                child: SizedBox(
                     width: 353,
                     height: 57,
                     child: Stack(
@@ -662,7 +716,7 @@ class ProductHomePage extends StatelessWidget {
                             Positioned(
                                 left: 0,
                                 top: 0,
-                                child: Container(
+                                child: SizedBox(
                                     width: 353,
                                     height: 57,
                                     child: Stack(
@@ -715,7 +769,7 @@ class ProductHomePage extends StatelessWidget {
             Positioned(
                 left: 0,
                 top: 931.51,
-                child: Container(
+                child: SizedBox(
                     width: 1366,
                     height: 92.49,
                     child: Stack(

@@ -69,6 +69,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '571963431868',
     projectId: 'dotpos-eg',
     storageBucket: 'dotpos-eg.appspot.com',
+    iosClientId: '571963431868-3fsv31eb9kjct6u39r17nreq4klmbvbm.apps.googleusercontent.com',
     iosBundleId: 'com.example.dotpos1',
   );
 }
