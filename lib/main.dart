@@ -6,12 +6,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  //WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp(
+    //options: DefaultFirebaseOptions.currentPlatform,
+  //);
  runApp(MyApp());
- await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+ //await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 }
 
 
@@ -260,7 +260,7 @@ class LoginScreenPage extends StatelessWidget {
                             ),
                             Positioned(
                                 left: 4,
-                                top: 110,
+                                top: 105,
                                 child: SizedBox(
                                     width: 162,
                                     height: 24,
