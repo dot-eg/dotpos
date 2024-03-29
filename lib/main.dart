@@ -1,10 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'product_home_page.dart';
 import 'login_screen.dart';
+import 'auth_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,12 +43,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  final AuthService _authService = AuthService();
   var selectedIndex = 0;
-
-  Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
 
   @override
   Widget build(BuildContext context) { 
@@ -67,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         break;
       case 4:
         page = LoginScreenPage();
-        signOut();
+        _authService.signOut();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
