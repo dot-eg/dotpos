@@ -1,5 +1,6 @@
 
 import 'package:dotpos_1/login_screen.dart';
+import 'package:dotpos_1/product_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -5,400 +5,124 @@ class ProductHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
     body: Container(
-    width: 1366,
-    height: 1024,
+    width: 1920,
+    height: 1080,
     clipBehavior: Clip.antiAlias,
     decoration: BoxDecoration(color: Colors.white),
     child: Stack(
         children: [
             Positioned(
-                left: 936,
+                left: 0,
                 top: 0,
                 child: Container(
-                    width: 430,
-                    height: 932,
-                    decoration: BoxDecoration(color: Color(0xFFA5A5A5)),
-                ),
-            ),
-            Positioned(
-                left: 936,
-                top: 0,
-                child: Container(
-                    width: 430,
-                    height: 81,
-                    decoration: BoxDecoration(color: Colors.black),
-                ),
-            ),
-            Positioned(
-                left: 61,
-                top: 71,
-                child: SizedBox(
-                    width: 802,
-                    height: 826,
-                    child: Stack(
-                        children: [
-                            Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 163,
-                                top: 0,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 652,
-                                top: 0,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 326,
-                                top: 0,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 489,
-                                top: 0,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 0,
-                                top: 169,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 163,
-                                top: 169,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 652,
-                                top: 169,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 326,
-                                top: 169,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 489,
-                                top: 169,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 0,
-                                top: 507,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 163,
-                                top: 507,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 652,
-                                top: 507,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 326,
-                                top: 507,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 489,
-                                top: 507,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 0,
-                                top: 676,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 163,
-                                top: 676,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 652,
-                                top: 676,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 326,
-                                top: 676,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 489,
-                                top: 676,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 0,
-                                top: 338,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 163,
-                                top: 338,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 652,
-                                top: 338,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 326,
-                                top: 338,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                            Positioned(
-                                left: 489,
-                                top: 338,
-                                child: Container(
-                                    width: 150,
-                                    height: 150,
-                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                ),
-                            ),
-                        ],
-                    ),
-                ),
-            ),
-            Positioned(
-                left: 53,
-                top: 19,
-                child: SizedBox(
-                    width: 195,
-                    height: 42,
-                    child: Text(
-                        'Products',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            fontFamily: 'Content',
-                            fontWeight: FontWeight.w700,
-                            height: 0,
+                    width: 1920,
+                    height: 1080,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage("https://images.unsplash.com/photo-1554034483-04fda0d3507b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                            fit: BoxFit.fill,
                         ),
                     ),
                 ),
             ),
             Positioned(
-                left: 974,
-                top: 840,
-                child: SizedBox(
-                    width: 353,
-                    height: 57,
-                    child: Stack(
-                        children: [
-                            Positioned(
-                                left: 0,
-                                top: 0,
-                                child: SizedBox(
-                                    width: 353,
-                                    height: 57,
-                                    child: Stack(
-                                        children: [
-                                            Positioned(
-                                                left: 37.50,
-                                                top: 12,
-                                                child: SizedBox(
-                                                    width: 277,
-                                                    height: 33,
-                                                    child: Text(
-                                                        'Payment',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 20,
-                                                            fontFamily: 'Content',
-                                                            fontWeight: FontWeight.w700,
-                                                            height: 0,
-                                                        ),
-                                                    ),
-                                                ),
-                                            ),
-                                        ],
-                                    ),
-                                ),
-                            ),
-                        ],
-                    ),
+                left: 1014,
+                top: 0,
+                child: Container(
+                    width: 522,
+                    height: 1000,
+                    decoration: BoxDecoration(color: Color(0xB29A9393).withOpacity(0.5)),
                 ),
             ),
             Positioned(
-                left: 1053,
-                top: 19,
+                left: 555,
+                top: 22,
+                child: Container(
+                    width: 427,
+                    height: 67,
+                    decoration: ShapeDecoration(
+                        color: Color(0x66D9D9D9),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                        ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Search',
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.search),
+                        ),
+                        contentPadding: EdgeInsets.all(10.0),
+                      ),
+                    ))
+                    
+                ),
+            ),
+            Positioned(
+                left: 44,
+                top: 37,
                 child: SizedBox(
-                    width: 195,
-                    height: 42,
+                    width: 246,
+                    height: 38,
                     child: Text(
-                        'Cart',
-                        textAlign: TextAlign.center,
+                        'Your Products',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 30,
-                            fontFamily: 'Content',
-                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w300,
                             height: 0,
                         ),
                     ),
                 ),
             ),
             Positioned(
-                left: 0,
-                top: 931.51,
+                left: 1044,
+                top: 37,
                 child: SizedBox(
-                    width: 1366,
-                    height: 92.49,
-                    child: Stack(
-                        children: [
-                            Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Container(
-                                    width: 1366,
-                                    height: 92.49,
-                                    decoration: BoxDecoration(color: Colors.black),
-                                ),
-                            ),
-                            Positioned(
-                                left: 103.52,
-                                top: 23.98,
-                                child: Container(
-                                    width: 42.69,
-                                    height: 45.67,
-                                    decoration: ShapeDecoration(
-                                        color: Colors.white,
-                                        shape: OvalBorder(),
-                                    ),
-                                ),
-                            ),
-                            Positioned(
-                                left: 39.49,
-                                top: 23.98,
-                                child: Container(
-                                    width: 42.69,
-                                    height: 45.67,
-                                    decoration: ShapeDecoration(
-                                        color: Colors.white,
-                                        shape: OvalBorder(),
-                                    ),
-                                ),
-                            ),
-                            Positioned(
-                                left: 167.55,
-                                top: 23.98,
-                                child: Container(
-                                    width: 42.69,
-                                    height: 45.67,
-                                    decoration: ShapeDecoration(
-                                        color: Colors.white,
-                                        shape: OvalBorder(),
-                                    ),
-                                ),
-                            ),
-                        ],
+                    width: 246,
+                    height: 38,
+                    child: Text(
+                        'Cart',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w300,
+                            height: 0,
+                        ),
+                    ),
+                ),
+            ),
+            Positioned(
+                left: 1037,
+                top: 579,
+                child: Container(
+                    width: 221,
+                    height: 46,
+                    decoration: ShapeDecoration(
+                        color: Color(0xFFD9D9D9),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                        ),
+                    ),
+                ),
+            ),
+            Positioned(
+                left: 1281,
+                top: 579,
+                child: Container(
+                    width: 221,
+                    height: 46,
+                    decoration: ShapeDecoration(
+                        color: Color(0xFFD9D9D9),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                        ),
                     ),
                 ),
             ),

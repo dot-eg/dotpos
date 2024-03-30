@@ -13,12 +13,33 @@ class LoginScreenPage extends StatelessWidget {
       body: Form(
         key: _formKey,
         child: Container(
-          width: 1528,
-          height: 1000,
+          width: 1920,
+          height: 1080,
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(color: Colors.white),
           child: Stack(
               children: [
+                Positioned(
+                      left: 0,
+                      top: 0,
+                      child: Container(
+                          width: 1920,
+                          height: 1080,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage("https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                                  fit: BoxFit.fill,
+                              ),
+                          ),
+                      ),
+                  ),
+                  Positioned(
+                    left: 900,
+                    top: 0,
+                    child: Container(
+                        width: 700,
+                        height: 1000,
+                        decoration: BoxDecoration(color: Color(0xB29A9393).withOpacity(0.5)),),),
                   Positioned(
                       left: 968,
                       top: 105,
@@ -33,20 +54,6 @@ class LoginScreenPage extends StatelessWidget {
                                   fontFamily: 'Hind Kochi',
                                   fontWeight: FontWeight.w500,
                                   height: 0,
-                              ),
-                          ),
-                      ),
-                  ),
-                  Positioned(
-                      left: 0,
-                      top: 0,
-                      child: Container(
-                          width: 894,
-                          height: 1000,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: NetworkImage("https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-                                  fit: BoxFit.fill,
                               ),
                           ),
                       ),
@@ -70,6 +77,7 @@ class LoginScreenPage extends StatelessWidget {
                           ),
                       ),
                   ),
+                  
                   Positioned(
                       left: 968,
                       top: 193,
@@ -95,19 +103,21 @@ class LoginScreenPage extends StatelessWidget {
                                                   borderRadius: BorderRadius.circular(20),
                                               ),
                                           ),
-                                          child: TextFormField(
-                                            controller: _emailController,
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: 'Email',
-                                            ),
-                                            validator: (value) {
-                                              if (value == null || value.isEmpty) {
-                                                return 'Please enter your email';
-                                              }
-                                              return null;
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: TextFormField(
+                                              controller: _emailController,
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                hintText: 'Email',
+                                                ),
+                                              validator: (value) {
+                                                if (value == null || value.isEmpty) {
+                                                  return 'Please enter your email';
+                                                }
+                                                return null;
                                             },
-                                          ),
+                                          ),)
                                       ),
                                   ),
                                   Positioned(
@@ -127,20 +137,22 @@ class LoginScreenPage extends StatelessWidget {
                                                   borderRadius: BorderRadius.circular(20),
                                               ),
                                           ),
-                                          child: TextFormField(
-                                            controller: _passwordController,
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: 'Password',
-                                            ),
-                                            obscureText: true,
-                                            validator: (value) {
-                                              if (value == null || value.isEmpty) {
-                                                return 'Please enter your password';
-                                              }
-                                              return null;
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: TextFormField(
+                                              controller: _passwordController,
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                hintText: 'Password',
+                                              ),
+                                              obscureText: true,
+                                              validator: (value) {
+                                                if (value == null || value.isEmpty) {
+                                                  return 'Please enter your password';
+                                                }
+                                                return null;
                                             },
-                                          ),
+                                          ),)
                                       ),
                                   ),
                                   Positioned(

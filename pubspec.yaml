@@ -26,3 +26,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Hind Kochi
+      fonts:
+        - asset: fonts/HindKochi-Regular.ttf
+        - asset: fonts/HindKochi-SemiBold.ttf
+        - asset: fonts/HindKochi-Medium.ttf
+        - asset: fonts/HindKochi-Light.ttf

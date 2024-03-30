@@ -73,6 +73,7 @@ class NavigationBar extends State<CurrentPage> {
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
+        backgroundColor: Colors.blue.withOpacity(0.5),
       ) : null,
     );
   }
