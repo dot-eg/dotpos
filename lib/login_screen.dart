@@ -124,7 +124,7 @@ class LoginScreenPage extends StatelessWidget {
                                                       strokeAlign: BorderSide.strokeAlignOutside,
                                                       color: Color(0xFFC4BBBB),
                                                   ),
-                                                  borderRadius: BorderRadius.circular(10),
+                                                  borderRadius: BorderRadius.circular(20),
                                               ),
                                           ),
                                           child: TextFormField(
@@ -213,8 +213,15 @@ class LoginScreenPage extends StatelessWidget {
                           width: 150,
                           height: 30,
                           child: ElevatedButton(
-                            onPressed: ()  {
-                              _authService.login(_formKey, _emailController.text, _passwordController.text, context);
+                            onPressed: () async {
+                              final errorMessage = await _authService.login(_formKey, _emailController.text, _passwordController.text, context);
+                              if (errorMessage != "") {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(errorMessage),
+                                  ),
+                                );
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.black,
