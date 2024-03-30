@@ -99,31 +99,71 @@ class ProductHomePage extends StatelessWidget {
                 ),
             ),
             Positioned(
-                left: 1037,
-                top: 579,
-                child: Container(
+                left: 1040,
+                top: 740,
+                child: SizedBox(
                     width: 221,
                     height: 46,
-                    decoration: ShapeDecoration(
-                        color: Color(0xFFD9D9D9),
+                    child: ElevatedButton(
+                    onPressed: () => print("Button pressed"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                         ),
                     ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.shopping_cart),
+                        SizedBox(width: 10),
+                        Text(
+                        'Checkout',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w300,
+                            height: 0,
+                        ),
+                      ),
+                      ],
+                    ),
+                    )
                 ),
             ),
             Positioned(
-                left: 1281,
-                top: 579,
-                child: Container(
+                left: 1285,
+                top: 740,
+                child: SizedBox(
                     width: 221,
                     height: 46,
-                    decoration: ShapeDecoration(
-                        color: Color(0xFFD9D9D9),
+                    child: ElevatedButton(
+                      onPressed: () => print("Button pressed"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                         ),
                     ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.delete),
+                        SizedBox(width: 10),
+                        Text(
+                        'Clear Cart',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w300,
+                            height: 0,
+                        ),
+                      ),
+                      ],
+                    ),
+                    )
                 ),
             ),
         ],
