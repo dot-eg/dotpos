@@ -39,7 +39,7 @@ class LoginScreenPage extends StatelessWidget {
                     child: Container(
                         width: 700,
                         height: 1000,
-                        decoration: BoxDecoration(color: Color(0xB29A9393).withOpacity(0.5)),),),
+                        decoration: BoxDecoration(color: Color(0xB29A9393).withOpacity(0.6)),),),
                   Positioned(
                       left: 968,
                       top: 105,
@@ -49,7 +49,7 @@ class LoginScreenPage extends StatelessWidget {
                           child: Text(
                               'Log In',
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontSize: 30,
                                   fontFamily: 'Hind Kochi',
                                   fontWeight: FontWeight.w500,
@@ -67,7 +67,7 @@ class LoginScreenPage extends StatelessWidget {
                           child: Text(
                               'dot.',
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontSize: 70,
                                   fontFamily: 'Kollektif',
                                   fontWeight: FontWeight.w700,
@@ -164,7 +164,7 @@ class LoginScreenPage extends StatelessWidget {
                                           child: Text(
                                               'Username',
                                               style: TextStyle(
-                                                  color: Colors.black,
+                                                  color: Colors.white,
                                                   fontSize: 20,
                                                   fontFamily: 'Hind Kochi',
                                                   fontWeight: FontWeight.w500,
@@ -182,7 +182,7 @@ class LoginScreenPage extends StatelessWidget {
                                           child: Text(
                                               'Password',
                                               style: TextStyle(
-                                                  color: Colors.black,
+                                                  color: Colors.white,
                                                   fontSize: 20,
                                                   fontFamily: 'Hind Kochi',
                                                   fontWeight: FontWeight.w500,
@@ -213,7 +213,7 @@ class LoginScreenPage extends StatelessWidget {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
+                              backgroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -222,7 +222,7 @@ class LoginScreenPage extends StatelessWidget {
                               'Log in',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontSize: 20,
                                   fontFamily: 'Hind Kochi',
                                   fontWeight: FontWeight.w500,
@@ -239,10 +239,10 @@ class LoginScreenPage extends StatelessWidget {
                           width: 413,
                           height: 23,
                           child: Text(
-                              'Looking for the admin console? click here',
+                              'Looking for the admin console? Click Here',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontSize: 15,
                                   fontFamily: 'Hind Kochi',
                                   fontWeight: FontWeight.w500,
@@ -261,7 +261,7 @@ class LoginScreenPage extends StatelessWidget {
                               '© 2024 dot. , Made in the New Administrative Capital with ♡',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontSize: 15,
                                   fontFamily: 'Hind Kochi',
                                   fontWeight: FontWeight.w500,

@@ -1,4 +1,4 @@
-
+import 'package:dotpos_1/cart_model.dart';
 import 'package:dotpos_1/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +19,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => MyAppState()),
+        ChangeNotifierProvider(create: (context) => CartModel()),
+      ],
       child: MaterialApp(
         title: 'dot.',
         theme: ThemeData(
