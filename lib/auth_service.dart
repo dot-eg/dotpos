@@ -1,6 +1,6 @@
+import 'package:dotpos_1/navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'product_home_page.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -15,7 +15,7 @@ class AuthService {
       if (user != null) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => ProductHomePage(),
+            builder: (context) => CurrentPage(),
         ),
       );
       }

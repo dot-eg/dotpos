@@ -4,18 +4,20 @@ import 'main.dart';
 import 'product_home_page.dart';
 import 'login_screen.dart';
 
-class MyHomePage extends StatefulWidget {
+class CurrentPage extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => NavigationBar();
+  State<CurrentPage> createState() => NavigationBar();
 }
 
-class NavigationBar extends State<MyHomePage> {
+class NavigationBar extends State<CurrentPage> {
   final AuthService _authService = AuthService();
   var selectedIndex = 0;
+  bool _isLoggedIn = true;
 
   void _onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
+      _isLoggedIn = index != 4;
     });
   }
   
@@ -44,7 +46,7 @@ class NavigationBar extends State<MyHomePage> {
 }
   return Scaffold(
       body: page,
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: _isLoggedIn ? BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
@@ -71,7 +73,7 @@ class NavigationBar extends State<MyHomePage> {
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
-      ),
+      ) : null,
     );
   }
 }
