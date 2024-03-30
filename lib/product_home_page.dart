@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'cart_model.dart';
+import 'package:provider/provider.dart';
+import 'products.dart';
 
 class ProductHomePage extends StatelessWidget {
   @override
@@ -35,7 +38,7 @@ class ProductHomePage extends StatelessWidget {
                 ),
             ),
             Positioned(
-                left: 555,
+                left: 548,
                 top: 22,
                 child: Container(
                     width: 427,
@@ -100,12 +103,14 @@ class ProductHomePage extends StatelessWidget {
             ),
             Positioned(
                 left: 1040,
-                top: 740,
+                top: 625,
                 child: SizedBox(
                     width: 221,
                     height: 46,
                     child: ElevatedButton(
-                    onPressed: () => print("Button pressed"),
+                    onPressed: () {
+                      Provider.of<CartModel>(context, listen: false).clear();
+                    },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -115,7 +120,41 @@ class ProductHomePage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.shopping_cart),
+                        Icon(Icons.delete_forever),
+                        SizedBox(width: 10),
+                        Text(
+                        'Clear',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w300,
+                            height: 0,
+                        ),
+                      ),
+                      ],
+                    ),
+                    )
+                ),
+            ),
+            Positioned(
+                left: 1285,
+                top: 625,
+                child: SizedBox(
+                    width: 221,
+                    height: 46,
+                    child: ElevatedButton(
+                      onPressed: () => print("Button pressed"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                        ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.credit_card),
                         SizedBox(width: 10),
                         Text(
                         'Checkout',
@@ -132,40 +171,73 @@ class ProductHomePage extends StatelessWidget {
                     )
                 ),
             ),
-            Positioned(
-                left: 1285,
-                top: 740,
-                child: SizedBox(
-                    width: 221,
-                    height: 46,
-                    child: ElevatedButton(
-                      onPressed: () => print("Button pressed"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                        ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.delete),
-                        SizedBox(width: 10),
-                        Text(
-                        'Clear Cart',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontFamily: 'Hind Kochi',
-                            fontWeight: FontWeight.w300,
-                            height: 0,
-                        ),
-                      ),
-                      ],
-                    ),
-                    )
+           Positioned(
+              left: 1050,
+              top: 75, // Adjust the position as needed
+              child: SizedBox(
+                width: 400, // Adjust the size as needed
+                height: 500, // Adjust the size as needed
+                child: Consumer<CartModel>(
+                  builder: (context, cart, child) {
+                    return ListView.builder(
+                      itemCount: cart.items.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                            cart.items[index],
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'Hind Kochi',
+                              fontWeight: FontWeight.w300,
+                              height: 0,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                 ),
+              ),
             ),
+           Positioned(
+  left: 30,
+  top: 90,
+  child: SizedBox(
+    width: 950, // Adjust the size as needed
+    height: 1000, // Adjust the size as needed
+    child: GridView.builder(
+      padding: const EdgeInsets.all(10),
+      itemCount: products.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 5, // Adjust the number of items per row as needed
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            Provider.of<CartModel>(context, listen: false).add(products[index]);
+          },
+          child: Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Text(
+              products[index],
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+  ),
+),  
         ],
     ),
 )
