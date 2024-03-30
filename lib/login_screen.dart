@@ -186,32 +186,9 @@ class LoginScreenPage extends StatelessWidget {
                   Positioned(
                       left: 968,
                       top: 414,
-                      child: Container(
+                      child: SizedBox(
                           width: 486,
                           height: 65,
-                          decoration: ShapeDecoration(
-                              color: Colors.black,
-                              shape: RoundedRectangleBorder(
-                                  side: BorderSide(width: 1),
-                                  borderRadius: BorderRadius.circular(20),
-                              ),
-                              shadows: [
-                                  BoxShadow(
-                                      color: Color(0x3F000000),
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                      spreadRadius: 1,
-                                  )
-                              ],
-                          ),
-                      ),
-                  ),
-                  Positioned(
-                      left: 1125,
-                      top: 437,
-                      child: SizedBox(
-                          width: 150,
-                          height: 30,
                           child: ElevatedButton(
                             onPressed: () async {
                               final errorMessage = await _authService.login(_formKey, _emailController.text, _passwordController.text, context);
