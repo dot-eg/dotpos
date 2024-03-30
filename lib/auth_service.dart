@@ -1,11 +1,11 @@
+import 'package:dotpos_1/navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'product_home_page.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> login(GlobalKey<FormState> formkey, String username, String pass, BuildContext context) async {
+  Future<String> login(GlobalKey<FormState> formkey, String username, String pass, BuildContext context) async {
     try {
       final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: username,
@@ -15,20 +15,22 @@ class AuthService {
       if (user != null) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => ProductHomePage(),
+            builder: (context) => CurrentPage(),
         ),
       );
+        return "";
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        throw 'No user found for that email.';
+        return 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
-        throw 'Wrong password provided for that user.';
+        return 'Wrong password provided for that user.';
       }
     }
+    return 'Incorrect username or password. Please try again.';
     }
 
-    Future<void> signOut() async {
+  Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
-  }
+    }
   }
