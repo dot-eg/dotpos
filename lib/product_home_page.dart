@@ -148,7 +148,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
             ),
             Positioned(
                 left: 1040,
-                top: 625,
+                top: 600,
                 child: SizedBox(
                     width: 221,
                     height: 46,
@@ -184,7 +184,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
             ),
             Positioned(
                 left: 1285,
-                top: 625,
+                top: 600,
                 child: SizedBox(
                     width: 221,
                     height: 46,
@@ -216,7 +216,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                     )
                 ),
             ),
-           Positioned(
+           Positioned( // Cart
               left: 1050,
               top: 75, // Adjust the position as needed
               child: SizedBox(
@@ -245,7 +245,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                 ),
               ),
             ),
-            Positioned(
+            Positioned( //Products Grid
               left: 30,
               top: 90,
               child: SizedBox(
@@ -284,7 +284,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
               ),
             ),
             if (_searchController.text.isNotEmpty)
-            Positioned(
+            Positioned( // Search Results
               left: 548, // Adjust as needed
               top: 90,
               child: Container(
