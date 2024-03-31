@@ -1,4 +1,4 @@
-# dot. - POS Management System
+# dot. - POS System
 
 A Flutter project.
 Designed and built in the New Administrative Capital with ♡
