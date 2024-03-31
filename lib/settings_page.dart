@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-TextStyle settingsPageTextStyle = TextStyle(
-  fontSize: 10,
-  fontWeight: FontWeight.w200,
+TextStyle settingsNavTextStyle = TextStyle(
+  fontSize: 15,
+  fontWeight: FontWeight.w400,
   color: Colors.white,
+  fontFamily: 'Hind Kochi'
+);
+
+TextStyle settingsHeader = TextStyle(
+  fontSize: 25,
+  fontWeight: FontWeight.w600,
+  color: Colors.black,
   fontFamily: 'Hind Kochi'
 );
 
@@ -15,6 +22,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   var selectedIndex = 0;
+  bool isHovered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,32 +48,44 @@ class _SettingsPageState extends State<SettingsPage> {
     }
 
     return Scaffold(
-      body: Row(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage("https://images.unsplash.com/photo-1554034483-04fda0d3507b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+            fit: BoxFit.fill,
+          ),
+        ),
+      child: Row(
         children: [
-          SafeArea(
+          MouseRegion(
+            onEnter: (_) => setState(() => isHovered = true),
+            onExit: (_) => setState(() => isHovered = false),
+          child: SafeArea(
             child: NavigationRail(
               backgroundColor: Colors.black.withOpacity(0.5),
-              extended: true,
+              extended: isHovered,
+              selectedLabelTextStyle: TextStyle(color: Colors.black),
+              selectedIconTheme: IconThemeData(color: Colors.black),
               destinations: [
                 NavigationRailDestination(
                   icon: Icon(Icons.settings, color: Colors.white,),
-                  label: Text('General', style: settingsPageTextStyle,),
+                  label: Text('General', style: settingsNavTextStyle,),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.person, color: Colors.white,),
-                  label: Text('Users', style: settingsPageTextStyle,),
+                  label: Text('Users', style: settingsNavTextStyle,),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.lock, color: Colors.white,),
-                  label: Text('Secuity', style: settingsPageTextStyle,),
+                  label: Text('Secuity', style: settingsNavTextStyle,),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.color_lens, color: Colors.white,),
-                  label: Text('Personalization', style: settingsPageTextStyle,),
+                  label: Text('Personalization', style: settingsNavTextStyle,),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.info, color: Colors.white,),
-                  label: Text('About', style: settingsPageTextStyle,),
+                  label: Text('About', style: settingsNavTextStyle,),
                 ),
               ],
               selectedIndex: selectedIndex,
@@ -74,6 +94,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   selectedIndex = value;
                 });
               },
+            )
             ),
           ),
           Expanded(
@@ -84,9 +105,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: page,
             ),
           ),
+      
         ],
       ),
+      )
     );
+
   }
 }
 
@@ -137,10 +161,14 @@ class Personalization extends StatelessWidget {
 class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('About 5', style: TextStyle(color: Colors.black)),
-      ),
-    );
-  }
+    return Row(
+      children: [
+        Expanded(
+          child: AppBar(
+              title: Text('About', style: settingsHeader),
+            ),
+          ),
+        ],
+      );
+}
 }
