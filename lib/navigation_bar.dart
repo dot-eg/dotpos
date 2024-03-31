@@ -3,6 +3,7 @@ import 'auth_service.dart';
 import 'transaction_history.dart';
 import 'product_home_page.dart';
 import 'login_screen.dart';
+import 'settings_page.dart';
 
 class CurrentPage extends StatefulWidget {
   @override
@@ -35,7 +36,7 @@ class NavigationBar extends State<CurrentPage> {
         page = Placeholder();
         break;
       case 3:
-        page = Placeholder();
+        page = SettingsPage();
         break;
       case 4:
         page = LoginScreenPage();

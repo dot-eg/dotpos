@@ -19,4 +19,6 @@ linter:
     use_key_in_widget_constructors: false
     use_build_context_synchronously: false        
     library_private_types_in_public_api: false
+    avoid_unnecessary_containers: false
+
                             
