@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'cart_model.dart';
 import 'package:provider/provider.dart';
 import 'products.dart';
+import 'text_styles.dart';
 
 class ProductHomePage extends StatefulWidget {
   @override
@@ -116,16 +117,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                 child: SizedBox(
                     width: 246,
                     height: 38,
-                    child: Text(
-                        'Your Products',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontFamily: 'Hind Kochi',
-                            fontWeight: FontWeight.w300,
-                            height: 0,
-                        ),
-                    ),
+                    child: Text('Your Products', style: productspageHeaders),
                 ),
             ),
             Positioned(
@@ -134,16 +126,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                 child: SizedBox(
                     width: 246,
                     height: 38,
-                    child: Text(
-                        'Cart',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontFamily: 'Hind Kochi',
-                            fontWeight: FontWeight.w300,
-                            height: 0,
-                        ),
-                    ),
+                    child: Text('Cart', style: productspageHeaders),
                 ),
             ),
             Positioned(

@@ -33,3 +33,5 @@ flutter:
         - asset: fonts/HKMedium.ttf
         - asset: fonts/HKLight.ttf
         - asset: fonts/HKSemiBold.ttf
+  assets:
+    - assets/
