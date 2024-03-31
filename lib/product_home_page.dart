@@ -283,6 +283,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                 ),
               ),
             ),
+            if (_searchController.text.isNotEmpty)
             Positioned(
               left: 548, // Adjust as needed
               top: 90,
