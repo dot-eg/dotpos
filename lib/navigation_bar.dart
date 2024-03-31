@@ -3,7 +3,7 @@ import 'auth_service.dart';
 import 'transaction_history.dart';
 import 'product_home_page.dart';
 import 'login_screen.dart';
-import 'settings_page.dart';
+import 'UI_settings/settings_navigation.dart';
 
 class CurrentPage extends StatefulWidget {
   @override

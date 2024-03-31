@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
+import 'about_spage.dart';
+import 'general_spage.dart';
+import 'users_spage.dart';
+import 'security_spage.dart';
+import 'personalization_spage.dart';
+import 'package:dotpos_1/text_styles.dart';
 
-TextStyle settingsNavTextStyle = TextStyle(
-  fontSize: 15,
-  fontWeight: FontWeight.w400,
-  color: Colors.white,
-  fontFamily: 'Hind Kochi'
-);
-
-TextStyle settingsHeader = TextStyle(
-  fontSize: 25,
-  fontWeight: FontWeight.w600,
-  color: Colors.black,
-  fontFamily: 'Hind Kochi'
-);
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -112,63 +105,4 @@ class _SettingsPageState extends State<SettingsPage> {
     );
 
   }
-}
-
-class General extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('General 1', style: TextStyle(color: Colors.black)),
-      ),
-    );
-  }
-}
-
-class Users extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Users 2', style: TextStyle(color: Colors.black)),
-      ),
-    );
-  }
-}
-
-class Security extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Security 3', style: TextStyle(color: Colors.black)),
-      ),
-    );
-  }
-}
-
-class Personalization extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Personalization 4', style: TextStyle(color: Colors.black)),
-      ),
-    );
-  }
-}
-
-class About extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: AppBar(
-              title: Text('About', style: settingsHeader),
-            ),
-          ),
-        ],
-      );
-}
 }
