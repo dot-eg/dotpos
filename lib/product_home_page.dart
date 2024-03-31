@@ -3,7 +3,51 @@ import 'cart_model.dart';
 import 'package:provider/provider.dart';
 import 'products.dart';
 
-class ProductHomePage extends StatelessWidget {
+class ProductHomePage extends StatefulWidget {
+  @override
+  _ProductHomePageState createState() => _ProductHomePageState();
+}
+
+class _ProductHomePageState extends State<ProductHomePage> {
+  TextEditingController _searchController = TextEditingController();
+  List<String> _products = products;
+  List<String> _searchResults = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  _onSearchChanged() {
+    searchResultsList();
+  }
+
+  searchResultsList() {
+    var showResults = [];
+    if (_searchController.text != "") {
+      for (var product in _products) {
+        if (product.toLowerCase().contains(_searchController.text.toLowerCase())) {
+          showResults.add(product);
+        }
+      }
+    } else {
+      showResults = List.from(_products);
+    }
+
+    setState(() {
+      _searchResults = showResults.cast<String>();
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +96,7 @@ class ProductHomePage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
+                        controller: _searchController,
                         decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Search',
@@ -103,7 +148,7 @@ class ProductHomePage extends StatelessWidget {
             ),
             Positioned(
                 left: 1040,
-                top: 625,
+                top: 600,
                 child: SizedBox(
                     width: 221,
                     height: 46,
@@ -139,7 +184,7 @@ class ProductHomePage extends StatelessWidget {
             ),
             Positioned(
                 left: 1285,
-                top: 625,
+                top: 600,
                 child: SizedBox(
                     width: 221,
                     height: 46,
@@ -171,7 +216,7 @@ class ProductHomePage extends StatelessWidget {
                     )
                 ),
             ),
-           Positioned(
+           Positioned( // Cart
               left: 1050,
               top: 75, // Adjust the position as needed
               child: SizedBox(
@@ -200,44 +245,67 @@ class ProductHomePage extends StatelessWidget {
                 ),
               ),
             ),
-           Positioned(
-  left: 30,
-  top: 90,
-  child: SizedBox(
-    width: 950, // Adjust the size as needed
-    height: 1000, // Adjust the size as needed
-    child: GridView.builder(
-      padding: const EdgeInsets.all(10),
-      itemCount: products.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 5, // Adjust the number of items per row as needed
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            Provider.of<CartModel>(context, listen: false).add(products[index]);
-          },
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Text(
-              products[index],
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
+            Positioned( //Products Grid
+              left: 30,
+              top: 90,
+              child: SizedBox(
+                width: 950, // Adjust the size as needed
+                height: 1000, // Adjust the size as needed
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(10),
+                  itemCount: products.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5, // Adjust the number of items per row as needed
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Provider.of<CartModel>(context, listen: false).add(products[index]);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          products[index],
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        );
-      },
-    ),
-  ),
-),  
+            if (_searchController.text.isNotEmpty)
+            Positioned( // Search Results
+              left: 548, // Adjust as needed
+              top: 90,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: SizedBox(
+                  height: 427,
+                  width: 427,
+                    child: ListView.builder(
+                      itemCount: _searchResults.length,
+                      itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(_searchResults[index]),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
         ],
     ),
 )
