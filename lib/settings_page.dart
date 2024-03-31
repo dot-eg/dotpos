@@ -1,83 +1,88 @@
 import 'package:flutter/material.dart';
 
+TextStyle settingsPageTextStyle = TextStyle(
+  fontSize: 10,
+  fontWeight: FontWeight.w200,
+  color: Colors.white,
+  fontFamily: 'Hind Kochi'
+);
+
 class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();
+
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  int _selectedIndex = 0;
-
-  List<Widget> _subpages = [
-    General(),
-    Users(),
-    Security(),
-    Personalization(),
-    About(),
-  ];
+  var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    Widget page;
+    switch (selectedIndex) {
+      case 0:
+        page = General();
+        break;
+      case 1:
+        page = Users();
+        break;
+      case 2:
+        page = Security();
+        break;
+      case 3:
+        page = Personalization();
+        break;
+      case 4:
+        page = About();
+        break;
+      default:
+        throw UnimplementedError('no widget for $selectedIndex');
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings'),
-      ),
       body: Row(
         children: [
-          SettingsNavigationBar(
-            selectedIndex: _selectedIndex,
-            onIndexChanged: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
+          SafeArea(
+            child: NavigationRail(
+              backgroundColor: Colors.black.withOpacity(0.5),
+              extended: true,
+              destinations: [
+                NavigationRailDestination(
+                  icon: Icon(Icons.settings, color: Colors.white,),
+                  label: Text('General', style: settingsPageTextStyle,),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.person, color: Colors.white,),
+                  label: Text('Users', style: settingsPageTextStyle,),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.lock, color: Colors.white,),
+                  label: Text('Secuity', style: settingsPageTextStyle,),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.color_lens, color: Colors.white,),
+                  label: Text('Personalization', style: settingsPageTextStyle,),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.info, color: Colors.white,),
+                  label: Text('About', style: settingsPageTextStyle,),
+                ),
+              ],
+              selectedIndex: selectedIndex,
+              onDestinationSelected: (value) {
+                setState(() {
+                  selectedIndex = value;
+                });
+              },
+            ),
           ),
           Expanded(
-            child: _subpages[_selectedIndex],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SettingsNavigationBar extends StatelessWidget {
-  final int selectedIndex;
-  final ValueChanged<int> onIndexChanged;
-
-  SettingsNavigationBar({required this.selectedIndex, required this.onIndexChanged});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      color: Colors.grey[200],
-      child: ListView(
-        children: [
-          ListTile(
-            title: Text('General'),
-            selected: selectedIndex == 0,
-            onTap: () => onIndexChanged(0),
-          ),
-          ListTile(
-            title: Text('Users & Accounts'),
-            selected: selectedIndex == 1,
-            onTap: () => onIndexChanged(1),
-          ),
-          ListTile(
-            title: Text('Security'),
-            selected: selectedIndex == 2,
-            onTap: () => onIndexChanged(2),
-          ),
-          ListTile(
-            title: Text('Personalization'),
-            selected: selectedIndex == 3,
-            onTap: () => onIndexChanged(3),
-          ),
-          ListTile(
-            title: Text('About'),
-            selected: selectedIndex == 4,
-            onTap: () => onIndexChanged(4),
+              child: Container(
+                width: 1020,
+                height: 900,
+                color: Colors.white,
+                child: page,
+            ),
           ),
         ],
       ),
@@ -90,7 +95,7 @@ class General extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('General 1'),
+        child: Text('General 1', style: TextStyle(color: Colors.black)),
       ),
     );
   }
@@ -101,7 +106,7 @@ class Users extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('Users 2'),
+        child: Text('Users 2', style: TextStyle(color: Colors.black)),
       ),
     );
   }
@@ -112,7 +117,7 @@ class Security extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('Security 3'),
+        child: Text('Security 3', style: TextStyle(color: Colors.black)),
       ),
     );
   }
@@ -123,7 +128,7 @@ class Personalization extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('Personalization 4'),
+        child: Text('Personalization 4', style: TextStyle(color: Colors.black)),
       ),
     );
   }
@@ -134,7 +139,7 @@ class About extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('About 5'),
+        child: Text('About 5', style: TextStyle(color: Colors.black)),
       ),
     );
   }
