@@ -95,6 +95,17 @@ class LoginScreenPage extends StatelessWidget {
                                             padding: const EdgeInsets.all(8.0),
                                             child: TextFormField(
                                               controller: _emailController,
+                                              onFieldSubmitted: (_) async {
+                                                final errorMessage = await _authService.login(_formKey, _emailController.text, _passwordController.text, context);
+                                                if (errorMessage != "") {
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(errorMessage),
+                                                    ),
+                                                  );
+                                                }
+                                              
+                                              },
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
                                                 hintText: 'Email',
@@ -129,6 +140,16 @@ class LoginScreenPage extends StatelessWidget {
                                             padding: EdgeInsets.all(8.0),
                                             child: TextFormField(
                                               controller: _passwordController,
+                                              onFieldSubmitted: (_) async {
+                                                final errorMessage = await _authService.login(_formKey, _emailController.text, _passwordController.text, context);
+                                                if (errorMessage != "") {
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(errorMessage),
+                                                    ),
+                                                  );
+                                                }
+                                              },
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
                                                 hintText: 'Password',

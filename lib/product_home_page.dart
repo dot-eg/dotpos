@@ -245,7 +245,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
               top: 90,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.white.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: SizedBox(
