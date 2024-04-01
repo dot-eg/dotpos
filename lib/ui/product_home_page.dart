@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/cart_service.dart';
 import 'package:provider/provider.dart';
-import '../data/products.dart';
+import '../cloudbase/product_retrieve.dart';
 import 'text_styles.dart';
 import '../services/search_service.dart';
 

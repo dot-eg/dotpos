@@ -20,5 +20,5 @@ linter:
     use_build_context_synchronously: false        
     library_private_types_in_public_api: false
     avoid_unnecessary_containers: false
-
+    non_constant_identifier_names: false
                             

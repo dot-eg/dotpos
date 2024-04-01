@@ -1,4 +1,4 @@
-import '../data/products.dart';
+import '../cloudbase/product_retrieve.dart';
 
 class SearchService {
   List<String> _products = products;
