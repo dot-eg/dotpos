@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dotpos_1/text_styles.dart';
+import 'package:dotpos_1/ui/text_styles.dart';
 
 class About extends StatelessWidget {
   @override
@@ -19,7 +19,7 @@ class About extends StatelessWidget {
                     height: 500,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('assets/LogoWBG.png'),
+                            image: AssetImage('assets/images/LogoWBG.png'),
                         ),
                     ),
                 ),
