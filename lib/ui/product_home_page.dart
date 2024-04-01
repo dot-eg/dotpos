@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'cart_model.dart';
+import '../services/cart_service.dart';
 import 'package:provider/provider.dart';
-import 'products.dart';
+import '../data/products.dart';
 import 'text_styles.dart';
+import '../services/search_service.dart';
 
 class ProductHomePage extends StatefulWidget {
   @override
@@ -13,10 +14,12 @@ class _ProductHomePageState extends State<ProductHomePage> {
   TextEditingController _searchController = TextEditingController();
   List<String> _products = products;
   List<String> _searchResults = [];
+  late SearchService _searchService;
 
   @override
   void initState() {
     super.initState();
+    _searchService = SearchService(_products);
     _searchController.addListener(_onSearchChanged);
   }
 
@@ -28,24 +31,9 @@ class _ProductHomePageState extends State<ProductHomePage> {
   }
 
   _onSearchChanged() {
-    searchResultsList();
-  }
-
-  searchResultsList() {
-    var showResults = [];
-    if (_searchController.text != "") {
-      for (var product in _products) {
-        if (product.toLowerCase().contains(_searchController.text.toLowerCase())) {
-          showResults.add(product);
-        }
-      }
-    } else {
-      showResults = List.from(_products);
-    }
-
     setState(() {
-      _searchResults = showResults.cast<String>();
-    });
+      _searchResults = _searchService.search(_searchController.text);
+    }); 
   }
 
 
@@ -67,7 +55,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                     height: 1080,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: NetworkImage("https://images.unsplash.com/photo-1554034483-04fda0d3507b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                            image: AssetImage('images/backgrounds/products_bg.jpg'),
                             fit: BoxFit.fill,
                         ),
                     ),
@@ -87,7 +75,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                 top: 22,
                 child: Container(
                     width: 427,
-                    height: 67,
+                    height: 60,
                     decoration: ShapeDecoration(
                         color: Color(0x66D9D9D9),
                         shape: RoundedRectangleBorder(
@@ -245,7 +233,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
               top: 90,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.white.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: SizedBox(

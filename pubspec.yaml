@@ -29,9 +29,11 @@ flutter:
   fonts:
     - family: Hind Kochi
       fonts:
-        - asset: fonts/HKRegular.ttf
-        - asset: fonts/HKMedium.ttf
-        - asset: fonts/HKLight.ttf
-        - asset: fonts/HKSemiBold.ttf
+        - asset: assets/fonts/HKRegular.ttf
+        - asset: assets/fonts/HKMedium.ttf
+        - asset: assets/fonts/HKLight.ttf
+        - asset: assets/fonts/HKSemiBold.ttf
   assets:
     - assets/
+    - assets/images/
+    - assets/images/backgrounds/

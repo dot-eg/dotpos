@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'auth_service.dart';
-import 'transaction_history.dart';
-import 'product_home_page.dart';
-import 'login_screen.dart';
-import 'UI_settings/settings_navigation.dart';
+import '../ui/transaction_history.dart';
+import '../ui/product_home_page.dart';
+import '../ui/login_screen.dart';
+import '../ui/UI_settings/settings_navigation.dart';
 
 class CurrentPage extends StatefulWidget {
   @override
@@ -74,7 +74,7 @@ class NavigationBar extends State<CurrentPage> {
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
-        backgroundColor: Colors.blue.withOpacity(0.5),
+        backgroundColor: const Color.fromARGB(255, 122, 125, 128).withOpacity(0.5),
       ) : null,
     );
   }

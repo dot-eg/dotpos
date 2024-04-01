@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'auth_service.dart';
+import '../services/auth_service.dart';
 import 'text_styles.dart';
 
 class LoginScreenPage extends StatelessWidget {
@@ -28,7 +28,7 @@ class LoginScreenPage extends StatelessWidget {
                           height: 1080,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: NetworkImage("https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                                  image: AssetImage('assets/images/backgrounds/login_bg.jpg'),
                                   fit: BoxFit.fill,
                               ),
                           ),
@@ -95,6 +95,17 @@ class LoginScreenPage extends StatelessWidget {
                                             padding: const EdgeInsets.all(8.0),
                                             child: TextFormField(
                                               controller: _emailController,
+                                              onFieldSubmitted: (_) async {
+                                                final errorMessage = await _authService.login(_formKey, _emailController.text, _passwordController.text, context);
+                                                if (errorMessage != "") {
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(errorMessage),
+                                                    ),
+                                                  );
+                                                }
+                                              
+                                              },
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
                                                 hintText: 'Email',
@@ -129,6 +140,16 @@ class LoginScreenPage extends StatelessWidget {
                                             padding: EdgeInsets.all(8.0),
                                             child: TextFormField(
                                               controller: _passwordController,
+                                              onFieldSubmitted: (_) async {
+                                                final errorMessage = await _authService.login(_formKey, _emailController.text, _passwordController.text, context);
+                                                if (errorMessage != "") {
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(errorMessage),
+                                                    ),
+                                                  );
+                                                }
+                                              },
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
                                                 hintText: 'Password',

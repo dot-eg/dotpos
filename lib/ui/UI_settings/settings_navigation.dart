@@ -4,7 +4,7 @@ import 'general_spage.dart';
 import 'users_spage.dart';
 import 'security_spage.dart';
 import 'personalization_spage.dart';
-import 'package:dotpos_1/text_styles.dart';
+import 'package:dotpos_1/ui/text_styles.dart';
 
 
 class SettingsPage extends StatefulWidget {
@@ -44,7 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage("https://images.unsplash.com/photo-1554034483-04fda0d3507b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+            image: AssetImage('assets/images/backgrounds/products_bg.jpg'),
             fit: BoxFit.fill,
           ),
         ),
