@@ -150,21 +150,12 @@ class _ProductHomePageState extends State<ProductHomePage> {
                       children: <Widget>[
                         Icon(Icons.delete_forever),
                         SizedBox(width: 10),
-                        Text(
-                        'Clear',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontFamily: 'Hind Kochi',
-                            fontWeight: FontWeight.w300,
-                            height: 0,
-                        ),
-                      ),
+                        Text('Clear', style: productpageButtons),
                       ],
+                      ),
                     ),
                     )
                 ),
-            ),
             Positioned(
                 left: 1285,
                 top: 600,
@@ -184,16 +175,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                       children: <Widget>[
                         Icon(Icons.credit_card),
                         SizedBox(width: 10),
-                        Text(
-                        'Checkout',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontFamily: 'Hind Kochi',
-                            fontWeight: FontWeight.w300,
-                            height: 0,
-                        ),
-                      ),
+                        Text('Checkout', style: productpageButtons),
                       ],
                     ),
                     )
@@ -213,13 +195,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                         return ListTile(
                           title: Text(
                             cart.items[index],
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: 'Hind Kochi',
-                              fontWeight: FontWeight.w300,
-                              height: 0,
-                            ),
+                            style: cartList 
                           ),
                         );
                       },
@@ -255,10 +231,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                         ),
                         child: Text(
                           products[index],
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                          ),
+                          style: productsGrid
                         ),
                       ),
                     );
