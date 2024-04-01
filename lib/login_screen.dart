@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'auth_service.dart';
+import 'text_styles.dart';
 
 class LoginScreenPage extends StatelessWidget {
   final _emailController = TextEditingController();
@@ -48,13 +49,7 @@ class LoginScreenPage extends StatelessWidget {
                           height: 78,
                           child: Text(
                               'Log In',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontFamily: 'Hind Kochi',
-                                  fontWeight: FontWeight.w500,
-                                  height: 0,
-                              ),
+                              style: loginHeader
                           ),
                       ),
                   ),
@@ -66,14 +61,7 @@ class LoginScreenPage extends StatelessWidget {
                           height: 74,
                           child: Text(
                               'dot.',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 70,
-                                  fontFamily: 'Kollektif',
-                                  fontWeight: FontWeight.w700,
-                                  height: 0,
-                                  letterSpacing: -5,
-                              ),
+                              style: dotLogo 
                           ),
                       ),
                   ),
@@ -163,13 +151,7 @@ class LoginScreenPage extends StatelessWidget {
                                           height: 24,
                                           child: Text(
                                               'Username',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20,
-                                                  fontFamily: 'Hind Kochi',
-                                                  fontWeight: FontWeight.w500,
-                                                  height: 0,
-                                              ),
+                                              style: fieldHeaders
                                           ),
                                       ),
                                   ),
@@ -181,13 +163,7 @@ class LoginScreenPage extends StatelessWidget {
                                           height: 24,
                                           child: Text(
                                               'Password',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20,
-                                                  fontFamily: 'Hind Kochi',
-                                                  fontWeight: FontWeight.w500,
-                                                  height: 0,
-                                              ),
+                                              style: fieldHeaders
                                           ),
                                       ),
                                   ),
@@ -221,13 +197,7 @@ class LoginScreenPage extends StatelessWidget {
                             child:Text(
                               'Log in',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontFamily: 'Hind Kochi',
-                                  fontWeight: FontWeight.w500,
-                                  height: 0,
-                              ),
+                              style: membersList
                             ),
                           ),
                       ),
@@ -241,13 +211,7 @@ class LoginScreenPage extends StatelessWidget {
                           child: Text(
                               'Looking for the admin console? Click Here',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontFamily: 'Hind Kochi',
-                                  fontWeight: FontWeight.w500,
-                                  height: 0,
-                              ),
+                              style: looseTextW
                           ),
                       ),
                   ),
@@ -260,13 +224,7 @@ class LoginScreenPage extends StatelessWidget {
                           child: Text(
                               '© 2024 dot. , Made in the New Administrative Capital with ♡',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontFamily: 'Hind Kochi',
-                                  fontWeight: FontWeight.w500,
-                                  height: 0,
-                              ),
+                              style: looseTextW
                           ),
                       ),
                   ),
