@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../services/cart_service.dart';
 import 'package:provider/provider.dart';
-import '../cloudbase/product_retrieve.dart';
+import '../services/firestore_service.dart';
 import 'text_styles.dart';
 import '../services/search_service.dart';
+import 'product_page.dart';
 
 class ProductHomePage extends StatefulWidget {
   @override
@@ -210,6 +211,10 @@ class _ProductHomePageState extends State<ProductHomePage> {
                     return GestureDetector(
                       onTap: () {
                         Provider.of<CartModel>(context, listen: false).add(products[index]);
+                      },
+                      onLongPress: () {
+                        String selected = productMap[products[index]]!;
+                        openProductPage(context, selected);
                       },
                       child: Container(
                         alignment: Alignment.center,

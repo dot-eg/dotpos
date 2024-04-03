@@ -1,4 +1,4 @@
-import '../cloudbase/product_retrieve.dart';
+import 'firestore_service.dart';
 
 class SearchService {
   List<String> _products = products;
