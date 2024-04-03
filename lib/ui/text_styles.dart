@@ -67,7 +67,7 @@ TextStyle loginHeader = TextStyle(
 );
 
 TextStyle dotLogo = TextStyle(
-  color: Colors.white,
+  color: Colors.black,
   fontSize: 70,
   fontFamily: 'Kollektif',
   fontWeight: FontWeight.w700,
@@ -85,6 +85,14 @@ TextStyle fieldHeaders = TextStyle(
 
 TextStyle looseTextW = TextStyle(
   color: Colors.white,
+  fontSize: 15,
+  fontFamily: 'Hind Kochi',
+  fontWeight: FontWeight.w500,
+  height: 0,
+);
+
+TextStyle looseTextB = TextStyle(
+  color: Colors.black,
   fontSize: 15,
   fontFamily: 'Hind Kochi',
   fontWeight: FontWeight.w500,

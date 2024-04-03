@@ -20,29 +20,19 @@ class LoginScreenPage extends StatelessWidget {
           decoration: BoxDecoration(color: Colors.white),
           child: Stack(
               children: [
-                Positioned(
-                      left: 0,
-                      top: 0,
-                      child: Container(
-                          width: 1920,
-                          height: 1080,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/images/backgrounds/login_bg.jpg'),
-                                  fit: BoxFit.fill,
-                              ),
-                          ),
-                      ),
-                  ),
                   Positioned(
-                    left: 900,
-                    top: 0,
+                    left: 915,
+                    top: 54,
                     child: Container(
-                        width: 700,
-                        height: 1000,
-                        decoration: BoxDecoration(color: Color(0xB29A9393).withOpacity(0.6)),),),
+                        width: 551,
+                        height: 640,
+                        decoration: ShapeDecoration(
+                          color: Colors.black.withOpacity(0.9),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),),),),
                   Positioned(
-                      left: 968,
+                      left: 950,
                       top: 105,
                       child: SizedBox(
                           width: 290,
@@ -54,8 +44,8 @@ class LoginScreenPage extends StatelessWidget {
                       ),
                   ),
                   Positioned(
-                      left: 48,
-                      top: 44,
+                      left: 52,
+                      top: 606,
                       child: SizedBox(
                           width: 131,
                           height: 74,
@@ -67,16 +57,16 @@ class LoginScreenPage extends StatelessWidget {
                   ),
                   
                   Positioned(
-                      left: 968,
+                      left: 950,
                       top: 193,
                       child: SizedBox(
                           width: 486,
-                          height: 190,
+                          height: 195,
                           child: Stack(
                               children: [
                                   Positioned(
                                       left: 0,
-                                      top: 24,
+                                      top: 29,
                                       child: Container(
                                           width: 486,
                                           height: 56,
@@ -193,7 +183,7 @@ class LoginScreenPage extends StatelessWidget {
                       ),
                   ),
                   Positioned(
-                      left: 968,
+                      left: 950,
                       top: 414,
                       child: SizedBox(
                           width: 486,
@@ -224,7 +214,7 @@ class LoginScreenPage extends StatelessWidget {
                       ),
                   ),
                   Positioned(
-                      left: 1004,
+                      left: 980,
                       top: 500,
                       child: SizedBox(
                           width: 413,
@@ -237,7 +227,7 @@ class LoginScreenPage extends StatelessWidget {
                       ),
                   ),
                   Positioned(
-                      left: 989,
+                      left: 963,
                       top: 700,
                       child: SizedBox(
                           width: 465,
@@ -245,7 +235,7 @@ class LoginScreenPage extends StatelessWidget {
                           child: Text(
                               '© 2024 dot. , Made in the New Administrative Capital with ♡',
                               textAlign: TextAlign.center,
-                              style: looseTextW
+                              style: looseTextB
                           ),
                       ),
                   ),
