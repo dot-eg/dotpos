@@ -74,7 +74,7 @@ fit: BoxFit.fill,
             Positioned(
               left: 65,
               top: 266,
-              child: Container(
+              child: SizedBox(
                         width: 913,
                         height: 742,
                         child: Stack(
@@ -140,7 +140,7 @@ fit: BoxFit.fill,
                           Positioned(
                           left: 65,
                           top: 63,
-                          child: Container(
+                          child: SizedBox(
                           width: 583,
                           height: 134,
                           child: Stack(
@@ -188,7 +188,7 @@ fit: BoxFit.fill,
             Positioned(
               left: 65,
               top: 545,
-              child: Container(
+              child: SizedBox(
               width: 226,
               height: 36,
               child: Stack(

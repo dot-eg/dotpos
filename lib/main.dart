@@ -1,4 +1,3 @@
-import 'package:dotpos_1/UI/product_home_page.dart';
 import 'package:dotpos_1/services/cart_service.dart';
 import 'package:dotpos_1/ui/login_screen.dart';
 import 'package:flutter/material.dart';
