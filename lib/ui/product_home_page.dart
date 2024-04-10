@@ -40,7 +40,15 @@ class _ProductHomePageState extends State<ProductHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        setState(() {
+          _searchController.clear();
+          _searchResults = [];
+        });
+      },
+    child: Scaffold(
     body: Container(
     width: 1920,
     height: 1080,
@@ -120,7 +128,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
             ),
             Positioned(
                 left: 1040,
-                top: 600,
+                top: 655,
                 child: SizedBox(
                     width: 221,
                     height: 46,
@@ -137,7 +145,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.delete_forever),
+                        Icon(Icons.delete_forever, color: Colors.black),
                         SizedBox(width: 10),
                         Text('Clear', style: productpageButtons),
                       ],
@@ -147,7 +155,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                 ),
             Positioned(
                 left: 1285,
-                top: 600,
+                top: 655,
                 child: SizedBox(
                     width: 221,
                     height: 46,
@@ -162,7 +170,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.credit_card),
+                        Icon(Icons.credit_card, color: Colors.black),
                         SizedBox(width: 10),
                         Text('Checkout', style: productpageButtons),
                       ],
@@ -170,24 +178,75 @@ class _ProductHomePageState extends State<ProductHomePage> {
                     )
                 ),
             ),
-           Positioned( // Cart
+            Positioned(
               left: 1050,
-              top: 75, // Adjust the position as needed
+              top: 75,
               child: SizedBox(
-                width: 400, // Adjust the size as needed
-                height: 500, // Adjust the size as needed
+                width: 450,
+                height: 560,
                 child: Consumer<CartModel>(
                   builder: (context, cart, child) {
-                    return ListView.builder(
-                      itemCount: cart.items.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                            cart.items[index],
-                            style: cartList 
+                    return Column(
+                      children: <Widget>[
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: cart.items.length,
+                            itemBuilder: (context, index) {
+                              var itemEntry = cart.items.entries.elementAt(index);
+                              return FutureBuilder<double>(
+                                future: Future.value(cart.getPrice(itemEntry.key)),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    return CircularProgressIndicator();
+                                  } else if (snapshot.hasError) {
+                                    return Text('Error: ${snapshot.error}');
+                                  } else {
+                                    return ListTile(
+                                      title: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            itemEntry.key,
+                                            style: cartList,
+                                          ),
+                                          Text(
+                                            'Quantity: ${itemEntry.value} | Price: EGP ${snapshot.data}',
+                                            style: cartList.copyWith(fontSize: 12.0),
+                                          ),
+                                        ],
+                                      ),
+                                      trailing: IconButton(
+                                        icon: Icon(Icons.remove, color: Colors.white),
+                                        onPressed: () {
+                                          Provider.of<CartModel>(context, listen: false).remove(itemEntry.key);
+                                        },
+                                      ),
+                                    );
+                                  }
+                                },
+                              );
+                            },
                           ),
-                        );
-                      },
+                        ),
+                        Divider(
+                          color: Colors.white, // Adjust the color as needed
+                          thickness: 1.0, // Adjust the thickness as needed
+                          ),
+                        Container(
+                          margin: EdgeInsets.only(top: 5.0), // Adjust the value as needed
+                          child: Align(
+                            alignment: Alignment(-1, 0.0),
+                            child: Text(
+                              'Total EGP ${cart.getTotal()}',
+                              style: productspageHeaders.copyWith(fontSize: 20.0),
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          color: Colors.white, // Adjust the color as needed
+                          thickness: 1.0, // Adjust the thickness as needed
+                          ),
+                      ],
                     );
                   },
                 ),
@@ -233,10 +292,18 @@ class _ProductHomePageState extends State<ProductHomePage> {
               ),
             ),
             if (_searchController.text.isNotEmpty)
-            Positioned( // Search Results
+            Positioned(
               left: 548, // Adjust as needed
               top: 90,
-              child: Container(
+              child: GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+                  setState(() {
+                    _searchController.clear();
+                    _searchResults = [];
+                  });
+                },
+                child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(10),
@@ -244,20 +311,28 @@ class _ProductHomePageState extends State<ProductHomePage> {
                 child: SizedBox(
                   height: 427,
                   width: 427,
-                    child: ListView.builder(
-                      itemCount: _searchResults.length,
-                      itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(_searchResults[index]),
+                  child: ListView.builder(
+                    itemCount: _searchResults.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          String selected = productMap[_searchResults[index]]!;
+                          openProductPage(context, selected);
+                        },
+                        child: ListTile(
+                          title: Text(_searchResults[index]),
+                        ),
                       );
                     },
                   ),
                 ),
               ),
+              ),
             ),
-        ],
-    ),
-)
+          ],
+        ),
+      )
+    )
     );
   }
 }
