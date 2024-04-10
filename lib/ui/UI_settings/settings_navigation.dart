@@ -4,7 +4,7 @@ import 'general_spage.dart';
 import 'users_spage.dart';
 import 'security_spage.dart';
 import 'personalization_spage.dart';
-import 'package:dotpos_1/ui/text_styles.dart';
+import '../text_styles.dart';
 
 
 class SettingsPage extends StatefulWidget {

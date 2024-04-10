@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dotpos_1/ui/text_styles.dart';
+import '../text_styles.dart';
 
 class About extends StatelessWidget {
   @override

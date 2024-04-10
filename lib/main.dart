@@ -1,5 +1,5 @@
-import 'package:dotpos_1/services/cart_service.dart';
-import 'package:dotpos_1/ui/login_screen.dart';
+import '../services/cart_service.dart';
+import '../ui/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
