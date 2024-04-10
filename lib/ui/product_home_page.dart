@@ -56,7 +56,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                     height: 1080,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('images/backgrounds/products_bg.jpg'),
+                            image: AssetImage('assets/images/backgrounds/products_bg.jpg'),
                             fit: BoxFit.fill,
                         ),
                     ),
