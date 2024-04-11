@@ -1,5 +1,4 @@
 import 'package:dotpos/services/navi_service.dart';
-import 'package:dotpos/ui/product_home_page.dart';
 import 'package:flutter/material.dart';
 import '../ui/text_styles.dart';
 import 'package:provider/provider.dart';
