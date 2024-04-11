@@ -5,6 +5,7 @@ import '../services/firestore_service.dart';
 import 'text_styles.dart';
 import '../services/search_service.dart';
 import 'product_page.dart';
+import 'checkout_page.dart';
 
 class ProductHomePage extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
   List<String> _products = products;
   List<String> _searchResults = [];
   late SearchService _searchService;
+  late CartModel cart;
 
   @override
   void initState() {
@@ -160,7 +162,9 @@ class _ProductHomePageState extends State<ProductHomePage> {
                     width: 221,
                     height: 46,
                     child: ElevatedButton(
-                      onPressed: () => print("Button pressed"),
+                      onPressed: () {
+                        openCheckoutPage(context, cart = Provider.of<CartModel>(context, listen: false));
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -237,7 +241,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                           child: Align(
                             alignment: Alignment(-1, 0.0),
                             child: Text(
-                              'Total EGP ${cart.getTotal()}',
+                              'Subtotal EGP ${cart.getTotal()}',
                               style: productspageHeaders.copyWith(fontSize: 20.0),
                             ),
                           ),
