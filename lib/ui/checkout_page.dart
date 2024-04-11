@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../ui/text_styles.dart';
 import 'package:provider/provider.dart';
 import '../services/cart_service.dart';
+import '../services/trans_service.dart';
+import '../services/firestore_service.dart' as firestore_service;
+import '../services/reciept_service.dart';
 
 
 void openCheckoutPage(context, CartModel cart) {
@@ -34,6 +37,12 @@ class _CheckoutPageState extends State<CheckoutPage>{
   void initState(){
     super.initState();
     _amountController.addListener(calculateChangeDue);
+    _phoneController.addListener(() {
+      getInfobyPhone(_phoneController.text);
+    });
+    // _customerIDController.addListener(() {
+    //   getInfobyID(_customerIDController.text);
+    // });
   }
 
   void calculateChangeDue(){
@@ -51,6 +60,32 @@ class _CheckoutPageState extends State<CheckoutPage>{
 
   bool isNumeric(String s) {
     return double.tryParse(s) != null;
+  }
+
+  void getInfobyPhone(String phone) async {
+    final customerRef = firestore_service.db.collection('Customer');
+    final customerDoc = await customerRef.where('Phone_no', isEqualTo: phone).get();
+    if (customerDoc.docs.isNotEmpty) {
+      final customerData = customerDoc.docs.first.data();
+      _nameController.text = customerData['Name'];
+      _emailController.text = customerData['Email'];
+      _customerIDController.text = customerDoc.docs.first.id;
+    }
+    }
+
+  void getInfobyID(String id) async {
+    if (id.isNotEmpty) {
+      final customerRef = firestore_service.db.collection('Customer');
+      final customerDoc = await customerRef.doc(id).get();
+      if (customerDoc.exists) {
+        final customerData = customerDoc.data();
+        setState(() {
+          _nameController.text = customerData?['Name'];
+          _emailController.text = customerData?['Email'];
+          _phoneController.text = customerData?['Phone_no'];
+        });
+      }
+    }
   }
 
   @override
@@ -702,10 +737,67 @@ Positioned(
                 ),
               ),
             ),
-        ],
-    )
-),
+            Positioned(
+              left: 32,
+              top: 700,
+              child: SizedBox(
+                width: 200,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    String transactionid = await addTransaction(DateTime.now(), int.parse(_customerIDController.text), widget.cart.getTotal() * 1.15, widget.cart);
+                    if (transactionid != 'Failed to add transaction') {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Transaction Successful'), icon: Icon(Icons.check_circle, color: Colors.green),
+                            content: Text('Transaction ID: $transactionid'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(builder: (context) => CurrentPage()),
+                                  );
+                                  Provider.of<CartModel>(context, listen: false).clear();
+                                },
+                                child: Text('OK'),
+                              ),
+                              TextButton(
+                                onPressed: () {generateReceipt(context, transactionid, _nameController.text, _emailController.text, _phoneController.text, widget.cart);},
+                                child: Text('Print Receipt')
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
+                    },
+                  child: Text('Complete Transaction', style: TextStyle(fontFamily: 'Hind Kochi', fontSize: 15, color: Colors.black)),
+                )
+              ),
+            ),
+            Positioned(
+              left: 250,
+              top: 700,
+              child: SizedBox(
+                width: 200,
+                height: 50,
+                child: ElevatedButton(
+                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
+                  onPressed: () {Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => CurrentPage()),
+                    );
+                    Provider.of<CartModel>(context, listen: false).clear();
+                  },
+                  child: Text('Disregard Transaction', style: TextStyle(fontFamily: 'Hind Kochi', fontSize: 15, color: Colors.white)),
+                )
+              ),
+            )
+          ],
+        ),
+      ),
     );
-
   }  
 }
+
