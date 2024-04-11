@@ -702,10 +702,20 @@ Positioned(
                 ),
               ),
             ),
-        ],
-    )
-),
+            Positioned(
+              left: 32,
+              top: 500,
+              child: SizedBox(
+                width: 200,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {}, child: null,
+                )
+              ),
+            )
+          ],
+        ),
+      ),
     );
-
   }  
 }
