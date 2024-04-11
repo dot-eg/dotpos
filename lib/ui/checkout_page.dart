@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../ui/text_styles.dart';
 import 'package:provider/provider.dart';
 import '../services/cart_service.dart';
+import '../services/trans_service.dart';
 
 
 void openCheckoutPage(context, CartModel cart) {
@@ -704,12 +705,65 @@ Positioned(
             ),
             Positioned(
               left: 32,
-              top: 500,
+              top: 700,
               child: SizedBox(
                 width: 200,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {}, child: null,
+                  onPressed: () async {
+                    String transactionid = await addTransaction(DateTime.now(), int.parse(_customerIDController.text), widget.cart.getTotal() * 1.15, widget.cart);
+                    if (transactionid != 'Failed to add transaction') {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Transaction Successful'), icon: Icon(Icons.check_circle, color: Colors.green),
+                            content: Text('Transaction ID: $transactionid'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(builder: (context) => CurrentPage()),
+                                  );
+                                  Provider.of<CartModel>(context, listen: false).clear();
+                                },
+                                child: Text('OK'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
+                    },
+                  child: Text('Complete Transaction', style: TextStyle(fontFamily: 'Hind Kochi', fontSize: 15, color: Colors.black)),
+                )
+              ),
+            ),
+            Positioned(
+              left: 250,
+              top: 700,
+              child: SizedBox(
+                width: 200,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {}, child: Text('Print Receipt', style: TextStyle(fontFamily: 'Hind Kochi', fontSize: 15, color: Colors.black)),
+                )
+              ),
+            ),
+            Positioned(
+              left: 468,
+              top: 700,
+              child: SizedBox(
+                width: 200,
+                height: 50,
+                child: ElevatedButton(
+                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
+                  onPressed: () {Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => CurrentPage()),
+                    );
+                    Provider.of<CartModel>(context, listen: false).clear();
+                  },
+                  child: Text('Disregard Transaction', style: TextStyle(fontFamily: 'Hind Kochi', fontSize: 15, color: Colors.white)),
                 )
               ),
             )
