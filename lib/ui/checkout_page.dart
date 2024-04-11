@@ -4,6 +4,7 @@ import '../ui/text_styles.dart';
 import 'package:provider/provider.dart';
 import '../services/cart_service.dart';
 
+
 void openCheckoutPage(context, CartModel cart) {
   Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -11,13 +12,60 @@ void openCheckoutPage(context, CartModel cart) {
           ),
         );
 }
-
-class CheckoutPage extends StatelessWidget{
+class CheckoutPage extends StatefulWidget {
   final CartModel cart;
-
   CheckoutPage({Key? key, required this.cart}) : super(key: key);
 
   @override
+  _CheckoutPageState createState() => _CheckoutPageState();
+}
+
+class _CheckoutPageState extends State<CheckoutPage>{
+  String MethoddropdownValue = 'Cash';
+  String TaxesdropdownValue = '15%';
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _customerIDController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+  double changeDue = 0;
+
+  @override
+  void initState(){
+    super.initState();
+    _amountController.addListener(calculateChangeDue);
+  }
+
+  void calculateChangeDue(){
+    print('Calculating change due');
+    print(_amountController.text);
+    setState(() {
+      if (_amountController.text.isNotEmpty && isNumeric(_amountController.text)) {
+        changeDue = double.parse(_amountController.text) - widget.cart.getTotal();
+      } else {
+        changeDue = -widget.cart.getTotal();
+      }
+    });
+    print(changeDue);
+  }
+
+  bool isNumeric(String s) {
+    return double.tryParse(s) != null;
+  }
+
+  @override
+  void dispose(){
+    _nameController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _customerIDController.dispose();
+    _amountController.dispose();
+    _amountController.removeListener(calculateChangeDue);
+    super.dispose();
+  }
+
+  @override
+
   Widget build(BuildContext context){
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
@@ -327,7 +375,7 @@ class CheckoutPage extends StatelessWidget{
                 top: 330,
                 child: SizedBox(
                     width: 591,
-                    height: 125,
+                    height: 150,
                     child: Stack(
                         children: [
                             Positioned(
@@ -335,7 +383,7 @@ class CheckoutPage extends StatelessWidget{
                                 top: 0,
                                 child: SizedBox(
                                     width: 270,
-                                    height: 54,
+                                    height: 70,
                                     child: Stack(
                                         children: [
                                             Positioned(
@@ -357,13 +405,36 @@ class CheckoutPage extends StatelessWidget{
                                                 ),
                                             ),
                                             Positioned(
-                                                left: 0,
-                                                top: 23,
-                                                child: Container(
-                                                    width: 270,
-                                                    height: 31,
-                                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                                              left: 0,
+                                              top: 23,
+                                              child: Container(
+                                                width: 270, // Set the width as needed
+                                                height: 41,
+                                                decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: DropdownButton<String>(
+                                                    isExpanded: true, // This will make the dropdown menu item take the full width of its parent
+                                                    value: MethoddropdownValue,
+                                                    icon: const Icon(Icons.arrow_drop_down),
+                                                    iconSize: 24,
+                                                    style: const TextStyle(color: Colors.deepPurple),
+                                                    underline: Container(),
+                                                    onChanged: (String? newValue) {
+                                                      setState(() {
+                                                        MethoddropdownValue = newValue!;
+                                                      });
+                                                    },
+                                                    items: <String>['Cash', 'Credit Card', 'Mobile Wallet']
+                                                        .map<DropdownMenuItem<String>>((String value) {
+                                                      return DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text(value, style: TextStyle(color: Colors.black)),
+                                                      );
+                                                    }).toList(),
+                                                  ),
                                                 ),
+                                              ),
                                             ),
                                         ],
                                     ),
@@ -374,7 +445,7 @@ class CheckoutPage extends StatelessWidget{
                                 top: 72,
                                 child: SizedBox(
                                     width: 270,
-                                    height: 54,
+                                    height: 70,
                                     child: Stack(
                                         children: [
                                             Positioned(
@@ -396,13 +467,36 @@ class CheckoutPage extends StatelessWidget{
                                                 ),
                                             ),
                                             Positioned(
-                                                left: 0,
-                                                top: 23,
-                                                child: Container(
-                                                    width: 270,
-                                                    height: 31,
-                                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                                              left: 0,
+                                              top: 23,
+                                              child: Container(
+                                                width: 270, // Set the width as needed
+                                                height: 41,
+                                                decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: DropdownButton<String>(
+                                                    isExpanded: true, // This will make the dropdown menu item take the full width of its parent
+                                                    value: TaxesdropdownValue,
+                                                    icon: const Icon(Icons.arrow_drop_down),
+                                                    iconSize: 24,
+                                                    style: const TextStyle(color: Colors.deepPurple),
+                                                    underline: Container(),
+                                                    onChanged: (String? newValue) {
+                                                      setState(() {
+                                                        TaxesdropdownValue = newValue!;
+                                                      });
+                                                    },
+                                                    items: <String>['No Tax', '15%']
+                                                        .map<DropdownMenuItem<String>>((String value) {
+                                                      return DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text(value, style: TextStyle(color: Colors.black)),
+                                                      );
+                                                    }).toList(),
+                                                  ),
                                                 ),
+                                              ),
                                             ),
                                         ],
                                     ),
@@ -413,7 +507,7 @@ class CheckoutPage extends StatelessWidget{
                                 top: 71,
                                 child: SizedBox(
                                     width: 270,
-                                    height: 54,
+                                    height: 70,
                                     child: Stack(
                                         children: [
                                             Positioned(
@@ -439,8 +533,12 @@ class CheckoutPage extends StatelessWidget{
                                                 top: 23,
                                                 child: Container(
                                                     width: 270,
-                                                    height: 31,
+                                                    height: 41,
                                                     decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: Text(changeDue.toString()),
+                                                    ),
                                                 ),
                                             ),
                                         ],
@@ -452,7 +550,7 @@ class CheckoutPage extends StatelessWidget{
                                 top: 0,
                                 child: SizedBox(
                                     width: 270,
-                                    height: 54,
+                                    height: 64,
                                     child: Stack(
                                         children: [
                                             Positioned(
@@ -478,8 +576,16 @@ class CheckoutPage extends StatelessWidget{
                                                 top: 23,
                                                 child: Container(
                                                     width: 270,
-                                                    height: 31,
+                                                    height: 41,
                                                     decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                                                    child: TextField(
+                                                      controller: _amountController,
+                                                      keyboardType: TextInputType.number,
+                                                      decoration: InputDecoration(
+                                                        border: InputBorder.none,
+                                                        contentPadding: EdgeInsets.all(8.0),
+                                                      ),
+                                                    ),
                                                 ),
                                             ),
         ],
