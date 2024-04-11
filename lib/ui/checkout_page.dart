@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../services/cart_service.dart';
 import '../services/trans_service.dart';
 import '../services/firestore_service.dart' as firestore_service;
+import '../services/reciept_service.dart';
 
 
 void openCheckoutPage(context, CartModel cart) {
@@ -762,6 +763,10 @@ Positioned(
                                 },
                                 child: Text('OK'),
                               ),
+                              TextButton(
+                                onPressed: () {generateReceipt(context, transactionid, _nameController.text, _emailController.text, _phoneController.text, widget.cart);},
+                                child: Text('Print Receipt')
+                              ),
                             ],
                           );
                         },
@@ -774,17 +779,6 @@ Positioned(
             ),
             Positioned(
               left: 250,
-              top: 700,
-              child: SizedBox(
-                width: 200,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {}, child: Text('Print Receipt', style: TextStyle(fontFamily: 'Hind Kochi', fontSize: 15, color: Colors.black)),
-                )
-              ),
-            ),
-            Positioned(
-              left: 468,
               top: 700,
               child: SizedBox(
                 width: 200,
