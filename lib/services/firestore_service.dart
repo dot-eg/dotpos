@@ -146,6 +146,19 @@ Future<String> addCustomer(String name, String email, String phone) async {
 
 
 //---------------------------------------------------------------------------------------
+Future<List<Map<String, dynamic>>> retrieveAllTransactions() async {
+  try {
+    QuerySnapshot querySnapshot = await db.collection('Transaction').get();
+    List<Map<String, dynamic>> transactions = querySnapshot.docs.map((doc) => doc.data()).where((data) => data != null).toList().cast<Map<String, dynamic>>();
+    print (transactions);
+    return transactions;
+  } catch (e) {
+    print(e);
+    rethrow;
+  }
+}
+
+
 
 void retrieveAllData() async {
   await createProductMap();
