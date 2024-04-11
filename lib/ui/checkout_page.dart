@@ -4,6 +4,7 @@ import '../ui/text_styles.dart';
 import 'package:provider/provider.dart';
 import '../services/cart_service.dart';
 import '../services/trans_service.dart';
+import '../services/firestore_service.dart' as firestore_service;
 
 
 void openCheckoutPage(context, CartModel cart) {
@@ -35,6 +36,12 @@ class _CheckoutPageState extends State<CheckoutPage>{
   void initState(){
     super.initState();
     _amountController.addListener(calculateChangeDue);
+    _phoneController.addListener(() {
+      getInfobyPhone(_phoneController.text);
+    });
+    // _customerIDController.addListener(() {
+    //   getInfobyID(_customerIDController.text);
+    // });
   }
 
   void calculateChangeDue(){
@@ -52,6 +59,32 @@ class _CheckoutPageState extends State<CheckoutPage>{
 
   bool isNumeric(String s) {
     return double.tryParse(s) != null;
+  }
+
+  void getInfobyPhone(String phone) async {
+    final customerRef = firestore_service.db.collection('Customer');
+    final customerDoc = await customerRef.where('Phone_no', isEqualTo: phone).get();
+    if (customerDoc.docs.isNotEmpty) {
+      final customerData = customerDoc.docs.first.data();
+      _nameController.text = customerData['Name'];
+      _emailController.text = customerData['Email'];
+      _customerIDController.text = customerDoc.docs.first.id;
+    }
+    }
+
+  void getInfobyID(String id) async {
+    if (id.isNotEmpty) {
+      final customerRef = firestore_service.db.collection('Customer');
+      final customerDoc = await customerRef.doc(id).get();
+      if (customerDoc.exists) {
+        final customerData = customerDoc.data();
+        setState(() {
+          _nameController.text = customerData?['Name'];
+          _emailController.text = customerData?['Email'];
+          _phoneController.text = customerData?['Phone_no'];
+        });
+      }
+    }
   }
 
   @override
@@ -773,3 +806,4 @@ Positioned(
     );
   }  
 }
+
