@@ -241,7 +241,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                           child: Align(
                             alignment: Alignment(-1, 0.0),
                             child: Text(
-                              'Total EGP ${cart.getTotal()}',
+                              'Subtotal EGP ${cart.getTotal()}',
                               style: productspageHeaders.copyWith(fontSize: 20.0),
                             ),
                           ),

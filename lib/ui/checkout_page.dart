@@ -194,7 +194,7 @@ class _CheckoutPageState extends State<CheckoutPage>{
                                 top: 0,
                                 child: SizedBox(
                                     width: 270,
-                                    height: 54,
+                                    height: 75,
                                     child: Stack(
                                         children: [
                                             Positioned(
@@ -220,8 +220,16 @@ class _CheckoutPageState extends State<CheckoutPage>{
                                                 top: 23,
                                                 child: Container(
                                                     width: 270,
-                                                    height: 31,
+                                                    height: 41,
                                                     decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                                                    child: TextField(
+                                                      controller: _customerIDController,
+                                                      keyboardType: TextInputType.number,
+                                                      decoration: InputDecoration(
+                                                        border: InputBorder.none,
+                                                        contentPadding: EdgeInsets.all(8.0),
+                                                      ),
+                                                    ),
                                                 ),
                                             ),
                                         ],
@@ -655,7 +663,7 @@ Positioned(
                           child: Align(
                             alignment: Alignment(-1, 0.0),
                             child: Text(
-                              'Total EGP ${cart.getTotal()}',
+                              'Subtotal EGP ${cart.getTotal()}',
                               style: productspageHeaders.copyWith(fontSize: 20.0),
                             ),
                           ),
@@ -664,6 +672,30 @@ Positioned(
                           color: Colors.white, // Adjust the color as needed
                           thickness: 1.0, // Adjust the thickness as needed
                           ),
+                        Container(
+                          margin: EdgeInsets.only(top: 5.0), // Adjust the value as needed
+                          child: Align(
+                            alignment: Alignment(-1, 0.0),
+                            child: Text(
+                              'Taxes EGP ${cart.getTotal() * 0.15}',
+                              style: productspageHeaders.copyWith(fontSize: 20.0),
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          color: Colors.white, // Adjust the color as needed
+                          thickness: 1.0, // Adjust the thickness as needed
+                          ),
+                        Container(
+                          margin: EdgeInsets.only(top: 5.0), // Adjust the value as needed
+                          child: Align(
+                            alignment: Alignment(-1, 0.0),
+                            child: Text(
+                              'Total due EGP ${cart.getTotal() * 1.15}',
+                              style: productspageHeaders.copyWith(fontSize: 20.0, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                       ],
                     );
                   },
