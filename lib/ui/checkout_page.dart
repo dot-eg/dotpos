@@ -41,9 +41,9 @@ class _CheckoutPageState extends State<CheckoutPage>{
     print(_amountController.text);
     setState(() {
       if (_amountController.text.isNotEmpty && isNumeric(_amountController.text)) {
-        changeDue = double.parse(_amountController.text) - widget.cart.getTotal();
+        changeDue = double.parse(_amountController.text)  - widget.cart.getTotal() * 1.15;
       } else {
-        changeDue = -widget.cart.getTotal();
+        changeDue = 0;
       }
     });
     print(changeDue);
@@ -149,7 +149,7 @@ class _CheckoutPageState extends State<CheckoutPage>{
                 left: 32,
                 top: 101,
                 child: SizedBox(
-                    width: 150,
+                    width: 200,
                     height: 29,
                     child: Text(
                         'Customer Details',
@@ -186,7 +186,7 @@ class _CheckoutPageState extends State<CheckoutPage>{
                 top: 130,
                 child: SizedBox(
                     width: 591,
-                    height: 125,
+                    height: 150,
                     child: Stack(
                         children: [
                             Positioned(
@@ -224,7 +224,6 @@ class _CheckoutPageState extends State<CheckoutPage>{
                                                     decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
                                                     child: TextField(
                                                       controller: _customerIDController,
-                                                      keyboardType: TextInputType.number,
                                                       decoration: InputDecoration(
                                                         border: InputBorder.none,
                                                         contentPadding: EdgeInsets.all(8.0),
@@ -241,7 +240,7 @@ class _CheckoutPageState extends State<CheckoutPage>{
                                 top: 71,
                                 child: SizedBox(
                                     width: 270,
-                                    height: 54,
+                                    height: 70,
                                     child: Stack(
                                         children: [
                                             Positioned(
@@ -267,8 +266,15 @@ class _CheckoutPageState extends State<CheckoutPage>{
                                                 top: 23,
                                                 child: Container(
                                                     width: 270,
-                                                    height: 31,
+                                                    height: 41,
                                                     decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                                                    child: TextField(
+                                                      controller: _phoneController,
+                                                      decoration: InputDecoration(
+                                                        border: InputBorder.none,
+                                                        contentPadding: EdgeInsets.all(8.0),
+                                                      ),
+                                                    ),
                                                 ),
                                             ),
                                         ],
@@ -280,7 +286,7 @@ class _CheckoutPageState extends State<CheckoutPage>{
                                 top: 71,
                                 child: SizedBox(
                                     width: 270,
-                                    height: 54,
+                                    height: 70,
                                     child: Stack(
                                         children: [
                                             Positioned(
@@ -306,8 +312,15 @@ class _CheckoutPageState extends State<CheckoutPage>{
                                                 top: 23,
                                                 child: Container(
                                                     width: 270,
-                                                    height: 31,
+                                                    height: 41,
                                                     decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                                                    child: TextField(
+                                                      controller: _emailController,
+                                                      decoration: InputDecoration(
+                                                        border: InputBorder.none,
+                                                        contentPadding: EdgeInsets.all(8.0),
+                                                      ),
+                                                    ),
                                                 ),
                                             ),
                                         ],
@@ -319,7 +332,7 @@ class _CheckoutPageState extends State<CheckoutPage>{
                                 top: 0,
                                 child: SizedBox(
                                     width: 270,
-                                    height: 54,
+                                    height: 70,
                                     child: Stack(
                                         children: [
                                             Positioned(
@@ -345,29 +358,15 @@ class _CheckoutPageState extends State<CheckoutPage>{
                                                 top: 23,
                                                 child: Container(
                                                     width: 270,
-                                                    height: 31,
+                                                    height: 41,
                                                     decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                                                ),
-                                            ),
-                                        ],
-                                    ),
-                                ),
-                            ),
-                            Positioned(
-                                left: 321,
-                                top: 0,
-                                child: SizedBox(
-                                    width: 270,
-                                    height: 54,
-                                    child: Stack(
-                                        children: [
-                                            Positioned(
-                                                left: 0,
-                                                top: 23,
-                                                child: Container(
-                                                    width: 270,
-                                                    height: 31,
-                                                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                                                    child: TextField(
+                                                      controller: _nameController,
+                                                      decoration: InputDecoration(
+                                                        border: InputBorder.none,
+                                                        contentPadding: EdgeInsets.all(8.0),
+                                                      ),
+                                                    ),
                                                 ),
                                             ),
                                         ],
@@ -495,7 +494,7 @@ class _CheckoutPageState extends State<CheckoutPage>{
                                                         TaxesdropdownValue = newValue!;
                                                       });
                                                     },
-                                                    items: <String>['No Tax', '15%']
+                                                    items: <String>['15%']
                                                         .map<DropdownMenuItem<String>>((String value) {
                                                       return DropdownMenuItem<String>(
                                                         value: value,
@@ -592,6 +591,7 @@ class _CheckoutPageState extends State<CheckoutPage>{
                                                       decoration: InputDecoration(
                                                         border: InputBorder.none,
                                                         contentPadding: EdgeInsets.all(8.0),
+                                                        hintText: 'Enter amount',
                                                       ),
                                                     ),
                                                 ),
