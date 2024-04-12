@@ -1,22 +1,79 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../services/firestore_service.dart';
 import 'text_styles.dart';
+import 'package:intl/intl.dart';
 
-class HistoryPage extends StatelessWidget {
-  final Future<List<Map<String, dynamic>>> transactionsFuture = retrieveAllTransactions();
+class HistoryPage extends StatefulWidget {
+  @override
+  _HistoryPageState createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State<HistoryPage> {
+  late Future<List<Map<String, dynamic>>> transactionsFuture;
+  String? selectedDate;
+  String? selectedCustomerId;
+
+  @override
+  void initState() {
+    super.initState();
+    transactionsFuture = retrieveAllTransactions();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Transaction History', style: settingsHeader),
+        actions: [
+            Padding(
+              padding: EdgeInsets.only(top: 0, left: 100),
+              child: TextButton(
+                onPressed: () async {
+                  final DateTime now = DateTime.now();
+                  final DateTime firstDate = DateTime(now.year-1, now.month , now.day);
+                  final DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: now,
+                    firstDate: firstDate, // Replace with your first date
+                    lastDate: now, // Replace with your last date
+                  );
+                  if (pickedDate != null) {
+                    setState(() {
+                      selectedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                      transactionsFuture = retrieveAllTransactions(date: selectedDate, customerId: selectedCustomerId);
+                    });
+                  }
+                },
+                child: Text(selectedDate ?? 'Select Date'),
+              ),
+            ),
+            Padding(
+            padding: EdgeInsets.only(top: 0, right: 100),
+            child: DropdownButton<String>(
+              hint: Text('Select Customer ID'),
+              value: selectedCustomerId,
+              onChanged: (String? newValue) {
+              setState(() {
+                selectedCustomerId = newValue;
+                transactionsFuture = retrieveAllTransactions(date: selectedDate, customerId: selectedCustomerId);
+              });
+              },
+              items: <String>['1', '2', '3'] // Replace with your list of customer IDs
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+              }).toList(),
+            ),
+            ),
+        ],
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: transactionsFuture,
         builder: (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
