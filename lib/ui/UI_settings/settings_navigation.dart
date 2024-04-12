@@ -15,7 +15,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   var selectedIndex = 0;
-  bool isHovered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +49,10 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       child: Row(
         children: [
-          MouseRegion(
-            onEnter: (_) => setState(() => isHovered = true),
-            onExit: (_) => setState(() => isHovered = false),
-          child: SafeArea(
+        SafeArea(
             child: NavigationRail(
               backgroundColor: Colors.black.withOpacity(0.5),
-              extended: isHovered,
+              extended: true,
               selectedLabelTextStyle: TextStyle(color: Colors.black),
               selectedIconTheme: IconThemeData(color: Colors.black),
               destinations: [
@@ -89,7 +85,6 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             )
             ),
-          ),
           Expanded(
               child: Container(
                 width: 1020,

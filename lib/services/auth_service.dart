@@ -66,6 +66,33 @@ class AuthService {
     }
     return 'An error occurred. Please try again.';
   }
+
+  Future<String> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return "Password reset email sent";
+    } catch (e) {
+      print(e);
+      return 'An error occurred. Please try again.';
+    }
+  }
+
+  // Future<String> deleteUser(String uid) async {
+  //   try {
+  //     // Get the user from Firebase
+  //     firebase_auth.User? firebaseUser = firebase_auth.FirebaseAuth.instance.currentUser;
+  
+  //     // Check if the user is the one you want to delete
+  //     if (firebaseUser != null && firebaseUser.uid == uid) {
+  //       await firebaseUser.delete();
+  //       return "User deleted";
+  //     } else {
+  //       return "No matching user found";
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     return 'An error occurred. Please try again.';
+  //   }
 }
 
 class User {

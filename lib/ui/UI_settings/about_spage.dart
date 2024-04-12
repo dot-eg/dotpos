@@ -13,7 +13,7 @@ class About extends StatelessWidget {
           ),
           Positioned(
             top: 100,
-            left: 900,
+            left: 750,
             child: Container(
                     width: 500,
                     height: 500,
