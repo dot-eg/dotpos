@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'text_styles.dart';
-import 'forgot_password.dart';
+import 'login_screen.dart';
 
-class LoginScreenPage extends StatelessWidget {
+class Forgotpassword extends StatelessWidget {
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
   final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Form(
-            key: _formKey,
             child: Container(
               width: 1920,
               height: 1080,
@@ -41,7 +38,7 @@ class LoginScreenPage extends StatelessWidget {
                     child: SizedBox(
                       width: 290,
                       height: 78,
-                      child: Text('Log In', style: loginHeader),
+                      child: Text('Reset Password', style: loginHeader),
                     ),
                   ),
                   Positioned(
@@ -85,11 +82,7 @@ class LoginScreenPage extends StatelessWidget {
                                     controller: _emailController,
                                     onFieldSubmitted: (_) async {
                                       final errorMessage =
-                                          await _authService.login(
-                                              _formKey,
-                                              _emailController.text,
-                                              _passwordController.text,
-                                              context);
+                                          await _authService.resetPassword(_emailController.text);
                                       if (errorMessage != "") {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -113,73 +106,12 @@ class LoginScreenPage extends StatelessWidget {
                                 )),
                           ),
                           Positioned(
-                            left: 0,
-                            top: 134,
-                            child: Container(
-                                width: 486,
-                                height: 56,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      strokeAlign:
-                                          BorderSide.strokeAlignOutside,
-                                      color: Color(0xFFC4BBBB),
-                                    ),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: TextFormField(
-                                    controller: _passwordController,
-                                    onFieldSubmitted: (_) async {
-                                      final errorMessage =
-                                          await _authService.login(
-                                              _formKey,
-                                              _emailController.text,
-                                              _passwordController.text,
-                                              context);
-                                      if (errorMessage != "") {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(errorMessage),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'Password',
-                                    ),
-                                    obscureText: true,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your password';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                )),
-                          ),
-                          Positioned(
                             left: 4,
                             top: 0,
                             child: SizedBox(
                               width: 162,
                               height: 24,
-                              child: Text('Username', style: fieldHeaders),
-                            ),
-                          ),
-                          Positioned(
-                            left: 4,
-                            top: 105,
-                            child: SizedBox(
-                              width: 162,
-                              height: 24,
-                              child: Text('Password', style: fieldHeaders),
+                              child: Text('Enter your Email', style: fieldHeaders),
                             ),
                           ),
                         ],
@@ -194,11 +126,7 @@ class LoginScreenPage extends StatelessWidget {
                       height: 65,
                       child: ElevatedButton(
                         onPressed: () async {
-                          final errorMessage = await _authService.login(
-                              _formKey,
-                              _emailController.text,
-                              _passwordController.text,
-                              context);
+                          final errorMessage = await _authService.resetPassword(_emailController.text,);
                           if (errorMessage != "") {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -213,30 +141,33 @@ class LoginScreenPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        child: Text('Log in',
+                        child: Text('Reset Password',
                             textAlign: TextAlign.center, style: membersList),
                       ),
                     ),
                   ),
                   Positioned(
-                    left: 980,
+                    left: 950,
                     top: 500,
                     child: SizedBox(
-                      width: 413,
-                      height: 23,
-                      child: GestureDetector(
-                        onTap: () {
+                      width: 486,
+                      height: 65,
+                      child: ElevatedButton(
+                        onPressed: () async {
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => Forgotpassword()
-                              )
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreenPage(),
+                            ),
                           );
                         },
-                        child: Text(
-                          'Forgot your password? Click Here',
-                          textAlign: TextAlign.center,
-                          style: looseTextW,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
+                        child: Text('Back to Login',
+                            textAlign: TextAlign.center, style: membersList),
                       ),
                     ),
                   ),

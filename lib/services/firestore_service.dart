@@ -177,4 +177,14 @@ Future<List<Map<String, dynamic>>> retrieveAllTransactions({String? date, String
 void retrieveAllData() async {
   await createProductMap();
   await createCustomerMap();
+}class User {
+  final String uid;
+  final String email;
+  // Add more fields as needed
+
+  User({
+    required this.uid,
+    required this.email,
+    // Add more fields as needed
+  });
 }

@@ -35,8 +35,8 @@ class _HistoryPageState extends State<HistoryPage> {
                   final DateTime? pickedDate = await showDatePicker(
                     context: context,
                     initialDate: now,
-                    firstDate: firstDate, // Replace with your first date
-                    lastDate: now, // Replace with your last date
+                    firstDate: firstDate,
+                    lastDate: now,
                   );
                   if (pickedDate != null) {
                     setState(() {
@@ -59,7 +59,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 transactionsFuture = retrieveAllTransactions(date: selectedDate, customerId: selectedCustomerId);
               });
               },
-              items: <String>['1', '2', '3'] // Replace with your list of customer IDs
+              items: customerIds
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
