@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'about_spage.dart';
 import 'general_spage.dart';
 import 'users_spage.dart';
-import 'security_spage.dart';
+import 'history_spage.dart';
 import 'personalization_spage.dart';
 import '../text_styles.dart';
 
@@ -28,7 +28,7 @@ class _SettingsPageState extends State<SettingsPage> {
         page = Users();
         break;
       case 2:
-        page = Security();
+        page = History();
         break;
       case 3:
         page = Personalization();
@@ -69,8 +69,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   label: Text('Users', style: settingsNavTextStyle,),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.lock, color: Colors.white,),
-                  label: Text('Secuity', style: settingsNavTextStyle,),
+                  icon: Icon(Icons.history, color: Colors.white,),
+                  label: Text('History', style: settingsNavTextStyle,),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.color_lens, color: Colors.white,),

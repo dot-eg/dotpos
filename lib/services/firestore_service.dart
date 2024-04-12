@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+
 
 var db = FirebaseFirestore.instance;
 List<String> products = [];
@@ -145,7 +147,32 @@ Future<String> addCustomer(String name, String email, String phone) async {
 }
 
 
-//---------------------------------------------------------------------------------------
+Future<List<Map<String, dynamic>>> retrieveAllTransactions({String? date, String? customerId}) async {
+  try {
+    Query query = db.collection('Transaction');
+
+    if (date != null) {
+      DateTime selectedDate = DateFormat('yyyy-MM-dd').parse(date);
+      DateTime nextDay = selectedDate.add(Duration(days: 1));
+
+      query = query.where('Datetime', isGreaterThanOrEqualTo: Timestamp.fromDate(selectedDate))
+                   .where('Datetime', isLessThan: Timestamp.fromDate(nextDay));
+    }
+
+    if (customerId != null) {
+      query = query.where('Customer_ID', isEqualTo: customerId);
+    }
+
+    QuerySnapshot querySnapshot = await query.get();
+    List<Map<String, dynamic>> transactions = querySnapshot.docs.map((doc) => doc.data()).toList().cast<Map<String, dynamic>>();
+    print(transactions);
+    return transactions;
+  } catch (e) {
+    print(e);
+    rethrow;
+  }
+}
+
 
 void retrieveAllData() async {
   await createProductMap();
