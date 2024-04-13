@@ -58,7 +58,7 @@ class LoginScreenPage extends StatelessWidget {
                     top: MediaQuery.of(context).size.height * 0.24596367,
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.31640625,
-                      height: MediaQuery.of(context).size.height * 0.24596367,
+                      height: MediaQuery.of(context).size.height * 0.25696367,
                       child: Stack(
                         children: [
                           Positioned(
@@ -114,7 +114,7 @@ class LoginScreenPage extends StatelessWidget {
                           ),
                           Positioned(
                             left: 0,
-                            top: MediaQuery.of(context).size.height * 0.16902119,
+                            top: MediaQuery.of(context).size.height * 0.18,
                             child: Container(
                                 width: MediaQuery.of(context).size.width * 0.31640625,
                                 height: MediaQuery.of(context).size.height * 0.07063572,
