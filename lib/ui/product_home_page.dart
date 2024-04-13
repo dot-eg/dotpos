@@ -114,7 +114,10 @@ class _ProductHomePageState extends State<ProductHomePage> {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.16015625,
                   height: MediaQuery.of(context).size.height * 0.04793138,
-                  child: Text('Your Products', style: productspageHeaders.copyWith(fontSize: MediaQuery.of(context).size.width * 0.01953125)),
+                  child: Text('Your Products',
+                      style: productspageHeaders.copyWith(
+                          fontSize:
+                              MediaQuery.of(context).size.width * 0.01953125)),
                 ),
               ),
               Positioned(
@@ -123,7 +126,10 @@ class _ProductHomePageState extends State<ProductHomePage> {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.16015625,
                   height: MediaQuery.of(context).size.height * 0.04793138,
-                  child: Text('Cart', style: productspageHeaders.copyWith(fontSize: MediaQuery.of(context).size.width * 0.01953125)),
+                  child: Text('Cart',
+                      style: productspageHeaders.copyWith(
+                          fontSize:
+                              MediaQuery.of(context).size.width * 0.01953125)),
                 ),
               ),
               Positioned(
@@ -156,30 +162,51 @@ class _ProductHomePageState extends State<ProductHomePage> {
                 left: MediaQuery.of(context).size.width * 0.83658854,
                 top: MediaQuery.of(context).size.height * 0.82618567,
                 child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.14388021,
-                    height: MediaQuery.of(context).size.height * 0.0580222,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        openCheckoutPage(
-                            context,
-                            cart =
-                                Provider.of<CartModel>(context, listen: false));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+                  width: MediaQuery.of(context).size.width * 0.14388021,
+                  height: MediaQuery.of(context).size.height * 0.0580222,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      CartModel cart =
+                          Provider.of<CartModel>(context, listen: false);
+                      if (cart.isEmpty) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Error'),
+                              content: Text(
+                                  'Your cart is empty. Please add some items before checking out.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('OK'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      } else {
+                        openCheckoutPage(context, cart);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(Icons.credit_card, color: Colors.black),
-                          SizedBox(width: 10),
-                          Text('Checkout', style: productpageButtons),
-                        ],
-                      ),
-                    )),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.credit_card, color: Colors.black),
+                        SizedBox(width: 10),
+                        Text('Checkout', style: productpageButtons),
+                      ],
+                    ),
+                  ),
+                ),
               ),
               Positioned(
                 left: MediaQuery.of(context).size.width * 0.68359375,
@@ -305,8 +332,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
               ),
               if (_searchController.text.isNotEmpty)
                 Positioned(
-                  left: MediaQuery.of(context).size.width *
-                      0.35677083, // Adjust as needed
+                  left: MediaQuery.of(context).size.width * 0.35677083,
                   top: MediaQuery.of(context).size.height * 0.1135217,
                   child: GestureDetector(
                     onTap: () {
@@ -324,21 +350,23 @@ class _ProductHomePageState extends State<ProductHomePage> {
                       child: SizedBox(
                         height: MediaQuery.of(context).size.height * 0.53859738,
                         width: MediaQuery.of(context).size.width * 0.27799479,
-                        child: ListView.builder(
-                          itemCount: _searchResults.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                String selected =
-                                    productMap[_searchResults[index]]!;
-                                openProductPage(context, selected);
-                              },
-                              child: ListTile(
-                                title: Text(_searchResults[index]),
+                        child: _searchResults.isEmpty
+                            ? Center(child: Text('No results'))
+                            : ListView.builder(
+                                itemCount: _searchResults.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      String selected =
+                                          productMap[_searchResults[index]]!;
+                                      openProductPage(context, selected);
+                                    },
+                                    child: ListTile(
+                                      title: Text(_searchResults[index]),
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
                       ),
                     ),
                   ),

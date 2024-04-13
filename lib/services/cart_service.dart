@@ -47,4 +47,6 @@ class CartModel extends ChangeNotifier {
     });
     return total;
   }
+
+  bool get isEmpty => _items.isEmpty;
 }

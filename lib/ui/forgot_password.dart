@@ -12,18 +12,18 @@ class Forgotpassword extends StatelessWidget {
     return Scaffold(
         body: Form(
             child: Container(
-              width: 1920,
-              height: 1080,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(color: Colors.white),
               child: Stack(
                 children: [
                   Positioned(
-                    left: 915,
-                    top: 54,
+                    left: MediaQuery.of(context).size.width * 0.59570312,
+                    top: MediaQuery.of(context).size.height * 0.06811302,
                     child: Container(
-                      width: 551,
-                      height: 640,
+                      width: MediaQuery.of(context).size.width * 0.35872396,
+                      height: MediaQuery.of(context).size.height * 0.80726539,
                       decoration: ShapeDecoration(
                         color: Colors.black.withOpacity(0.9),
                         shape: RoundedRectangleBorder(
@@ -33,8 +33,8 @@ class Forgotpassword extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 950,
-                    top: 105,
+                    left: MediaQuery.of(context).size.width * 0.61848958,
+                    top: MediaQuery.of(context).size.height * 0.13244198,
                     child: SizedBox(
                       width: 290,
                       height: 78,
@@ -42,28 +42,28 @@ class Forgotpassword extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 52,
-                    top: 606,
+                    left: MediaQuery.of(context).size.width * 0.01953125,
+                    top: MediaQuery.of(context).size.height * 0.81987891,
                     child: SizedBox(
-                      width: 131,
-                      height: 74,
-                      child: Text('dot.', style: dotLogo),
+                      width: MediaQuery.of(context).size.width * 0.078125,
+                      height: MediaQuery.of(context).size.height * 0.09334006,
+                      child: Text('dot.', style: dotLogo.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04557292), textAlign: TextAlign.center,),
                     ),
                   ),
                   Positioned(
-                    left: 950,
-                    top: 193,
+                    left: MediaQuery.of(context).size.width * 0.61848958,
+                    top: MediaQuery.of(context).size.height * 0.24596367,
                     child: SizedBox(
-                      width: 486,
-                      height: 195,
+                      width: MediaQuery.of(context).size.width * 0.31640625,
+                      height: MediaQuery.of(context).size.height * 0.25696367,
                       child: Stack(
                         children: [
                           Positioned(
                             left: 0,
                             top: 29,
                             child: Container(
-                                width: 486,
-                                height: 56,
+                                width: MediaQuery.of(context).size.width * 0.31640625,
+                                height: MediaQuery.of(context).size.height * 0.07063572,
                                 decoration: ShapeDecoration(
                                   color: Colors.white,
                                   shape: RoundedRectangleBorder(
@@ -119,11 +119,11 @@ class Forgotpassword extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 950,
-                    top: 414,
+                    left: MediaQuery.of(context).size.width * 0.61848958,
+                    top: MediaQuery.of(context).size.height * 0.5221998,
                     child: SizedBox(
-                      width: 486,
-                      height: 65,
+                      width: MediaQuery.of(context).size.width * 0.31640625,
+                      height: MediaQuery.of(context).size.height * 0.08198789,
                       child: ElevatedButton(
                         onPressed: () async {
                           final errorMessage = await _authService.resetPassword(_emailController.text,);
@@ -147,11 +147,11 @@ class Forgotpassword extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 950,
+                    left:  MediaQuery.of(context).size.width * 0.61848958,
                     top: 500,
                     child: SizedBox(
-                      width: 486,
-                      height: 65,
+                      width: MediaQuery.of(context).size.width * 0.31640625,
+                      height: MediaQuery.of(context).size.height * 0.08198789,
                       child: ElevatedButton(
                         onPressed: () async {
                           Navigator.of(context).pushReplacement(
@@ -172,8 +172,8 @@ class Forgotpassword extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 963,
-                    top: 700,
+                    left: MediaQuery.of(context).size.width * 0.62695312,
+                    top: MediaQuery.of(context).size.height * 0.88294652,
                     child: SizedBox(
                       width: 465,
                       height: 54,
