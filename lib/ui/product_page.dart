@@ -122,7 +122,7 @@ class ProductPage extends StatelessWidget {
                         width: 238,
                         height: 30,
                         child: Text(
-                          'Available Quantity: ${productData['Qty'] ?? 'Default'}',
+                          'Available Quantity: ${productData['Quantity'] ?? 'Default'}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,

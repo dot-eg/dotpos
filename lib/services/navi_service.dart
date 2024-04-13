@@ -1,3 +1,4 @@
+import 'package:dotpos/ui/inventory_page.dart';
 import 'package:flutter/material.dart';
 import 'auth_service.dart';
 import '../ui/transaction_history.dart';
@@ -33,7 +34,7 @@ class NavigationBar extends State<CurrentPage> {
         page = HistoryPage();
         break;
       case 2:
-        page = Placeholder();
+        page = InventoryPage();
         break;
       case 3:
         page = SettingsPage();
