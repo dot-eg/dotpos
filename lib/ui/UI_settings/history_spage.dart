@@ -48,7 +48,9 @@ class History extends StatelessWidget {
               style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
               ),
-              child: Text('Clear All Transaction History', style: TextStyle(color: Colors.white)),
+              child: Text('Clear All Transaction History', 
+                          style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width * 0.00976562, fontFamily: 'Hind Kochi', fontWeight: FontWeight.w500, height: 0,)
+                          ),
             ),
           ),
         ),

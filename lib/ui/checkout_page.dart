@@ -785,48 +785,75 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   height: screenSize.height * 0.06306761,
                   child: ElevatedButton(
                     onPressed: () async {
-                      String transactionid = await addTransaction(
-                          DateTime.now(),
-                          int.parse(_customerIDController.text),
-                          widget.cart.getTotal() * 1.15,
-                          widget.cart);
-                      if (transactionid != 'Failed to add transaction') {
+                      if (_nameController.text.isEmpty ||
+                          _emailController.text.isEmpty ||
+                          _phoneController.text.isEmpty || 
+                          _customerIDController.text.isEmpty) {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Transaction Successful'),
-                              icon:
-                                  Icon(Icons.check_circle, color: Colors.green),
-                              content: Text('Transaction ID: $transactionid'),
+                              title: Text('Error'),
+                              content: Text('Please fill in all the fields.'),
                               actions: <Widget>[
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) => CurrentPage()),
-                                    );
-                                    Provider.of<CartModel>(context,
-                                            listen: false)
-                                        .clear();
-                                  },
                                   child: Text('OK'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
                                 ),
-                                TextButton(
-                                    onPressed: () {
-                                      generateReceipt(
-                                          context,
-                                          transactionid,
-                                          _nameController.text,
-                                          _emailController.text,
-                                          _phoneController.text,
-                                          widget.cart);
-                                    },
-                                    child: Text('Print Receipt')),
                               ],
                             );
                           },
                         );
+                      } else {
+                        String transactionid = await addTransaction(
+                          DateTime.now(),
+                          int.parse(_customerIDController.text),
+                          widget.cart.getTotal() * 1.15,
+                          widget.cart,
+                        );
+                        if (transactionid != 'Failed to add transaction') {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Transaction Successful'),
+                                icon: Icon(Icons.check_circle,
+                                    color: Colors.green),
+                                content: Text('Transaction ID: $transactionid'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CurrentPage()),
+                                      );
+                                      Provider.of<CartModel>(context,
+                                              listen: false)
+                                          .clear();
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      generateReceipt(
+                                        context,
+                                        transactionid,
+                                        _nameController.text,
+                                        _emailController.text,
+                                        _phoneController.text,
+                                        widget.cart,
+                                      );
+                                    },
+                                    child: Text('Print Receipt'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                       }
                     },
                     child: Text('Complete Transaction',
