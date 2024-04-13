@@ -35,8 +35,8 @@ class ProductPage extends StatelessWidget {
         title: Text(productData['Name']),
       ),
       body: Container(
-        width: 1528,
-        height: 742,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -47,27 +47,27 @@ class ProductPage extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Positioned(
-left: 972,
-top: 76,
-child: Container(
-width: 503,
-height: 480,
-decoration: BoxDecoration(
-image: DecorationImage(
-image: NetworkImage("https://via.placeholder.com/503x480"),
-fit: BoxFit.fill,
-),
-),
-),
-),
+              left: MediaQuery.of(context).size.width*0.65,
+              top: MediaQuery.of(context).size.height*0.1,
+              child: Container(
+                width: MediaQuery.of(context).size.width*0.3,
+                height: MediaQuery.of(context).size.height*0.6,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/dotpos-eg.appspot.com/o/placeholder.jpg?alt=media&token=c1924bd1-cdeb-4b74-8243-b83db7bef0be"),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+            ),
             Positioned(
               left: 0,
               top: 0,
               child: Container(
-                width: 913,
-                height: 742,
+                width: MediaQuery.of(context).size.width*0.6,
+                height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.4000000059604645),
+                  color: Colors.white.withOpacity(0.4000000059604645),
                 ),
               ),
             ),
@@ -75,146 +75,146 @@ fit: BoxFit.fill,
               left: 65,
               top: 266,
               child: SizedBox(
-                        width: 913,
-                        height: 742,
-                        child: Stack(
-                        children: [
-                          Positioned(
-                            left: 0,
-                            top: 0,
-                            child: SizedBox(
-                              width: 238,
-                              height: 34,
-                              child: Text(
-                                'SKU:${productData['SKU'] ?? 'Default'}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontFamily: 'Hind Kochi',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 0,
-                            top: 34,
-                            child: SizedBox(
-                              width: 238,
-                              height: 32,
-                              child: Text(
-                                'Price:${productData['Price'] ?? 'Default'}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontFamily: 'Hind Kochi',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                          left: 0,
-                          top: 66,
-                          child: SizedBox(
-                          width: 238,
-                          height: 30,
-                          child: Text(
-                          'Available Quantity: ${productData['Qty'] ?? 'Default'}',
+                width: MediaQuery.of(context).size.width*0.3,
+                height: MediaQuery.of(context).size.height*0.15,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 0,
+                      top: 0,
+                      child: SizedBox(
+                        width: 238,
+                        height: 34,
+                        child: Text(
+                          'SKU:${productData['SKU'] ?? 'Default'}',
                           style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontFamily: 'Hind Kochi',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
                           ),
-                          ),
-                          ),
-                          ),
-                          ],
-                          ),
-                          ),
-                          ),
-                          Positioned(
-                          left: 65,
-                          top: 63,
-                          child: SizedBox(
-                          width: 583,
-                          height: 134,
-                          child: Stack(
-                          children: [
-                          Positioned(
-                          left: 0,
-                          top: 0,
-                          child: SizedBox(
-                          width: 238,
-                          height: 53,
-                          child: Text(
-                          'Description',
-                          style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: 'Hind Kochi',
-                          fontWeight: FontWeight.w700,
-                          height: 0,
-                          ),
-                          ),
-                          ),
-                          ),
-                          Positioned(
-                          left: 0,
-                          top: 44,
-                          child: SizedBox(
-                          width: 583,
-                          height: 90,
-                          child: Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam molestie luctus tellus sagittis aliquam. Duis eu justo urna. Nunc dictum nisi et ante vehicula scelerisque. Nullam sit amet nisl eu tellus aliquam dictum eu rhoncus magna. Phasellus porttitor nisi non enim rutrum, et efficitur nibh dignissim.',
-                          style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontFamily: 'Hind Kochi',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                          ),
-                          ),
-                          ),
-                          ),
-                          ],
-                          ),
-                          ),
-                          ),
-            Positioned(
-              left: 65,
-              top: 545,
-              child: SizedBox(
-              width: 226,
-              height: 36,
-              child: Stack(
-              children: [
-              Positioned(
-              left: 59,
-              top: 5,
-              child: ElevatedButton(
-                onPressed: () {
-                  Provider.of<CartModel>(context, listen: false).add(productData['Name']);
-                  Navigator.pop(context);
-                },
-                child: Text('Add to Cart'),
-              ),
-            ),
-
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    Positioned(
+                      left: 0,
+                      top: 34,
+                      child: SizedBox(
+                        width: 238,
+                        height: 32,
+                        child: Text(
+                          'Price:${productData['Price'] ?? 'Default'}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 0,
+                      top: 66,
+                      child: SizedBox(
+                        width: 238,
+                        height: 30,
+                        child: Text(
+                          'Available Quantity: ${productData['Qty'] ?? 'Default'}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          );
-        }
-      }
+            Positioned(
+              left: 65,
+              top: 63,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width*0.4,
+                height: MediaQuery.of(context).size.height*0.2,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 0,
+                      top: 0,
+                      child: SizedBox(
+                        width: 238,
+                        height: 53,
+                        child: Text(
+                          'Description',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w700,
+                            height: 0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 0,
+                      top: 44,
+                      child: SizedBox(
+                        width: 583,
+                        height: 90,
+                        child: Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam molestie luctus tellus sagittis aliquam. Duis eu justo urna. Nunc dictum nisi et ante vehicula scelerisque. Nullam sit amet nisl eu tellus aliquam dictum eu rhoncus magna. Phasellus porttitor nisi non enim rutrum, et efficitur nibh dignissim.',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              left: MediaQuery.of(context).size.width*0.001,
+              top: MediaQuery.of(context).size.height*0.8,
+              child: SizedBox(
+                width: 226,
+                height: 36,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 59,
+                      top: 5,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Provider.of<CartModel>(context, listen: false)
+                              .add(productData['Name']);
+                          Navigator.pop(context);
+                        },
+                        child: Text('Add to Cart'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 // Positioned(
 //               top: 10,

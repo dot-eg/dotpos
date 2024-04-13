@@ -14,11 +14,12 @@ class AuthService {
       );
       final user = userCredential.user;
       if (user != null) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => CurrentPage(),
-        ),
-      );
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => CurrentPage(),
+          )
+      );});
         return "";
       }
     } on FirebaseAuthException catch (e) {

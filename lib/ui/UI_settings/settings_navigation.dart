@@ -87,8 +87,8 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           Expanded(
               child: Container(
-                width: 1020,
-                height: 900,
+                width: MediaQuery.of(context).size.width * 0.6640625,
+                height: MediaQuery.of(context).size.height,
                 color: Colors.white,
                 child: page,
             ),
