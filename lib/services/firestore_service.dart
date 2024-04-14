@@ -177,7 +177,20 @@ Future<List<Map<String, dynamic>>> retrieveAllTransactions({String? date, String
 void retrieveAllData() async {
   await createProductMap();
   await createCustomerMap();
-}class User {
+}
+
+void refreshAllData() async {
+  products = [];
+  productIds = [];
+  customerIds = [];
+  customers = [];
+  productMap = {};
+  customerMap = {};
+  await createProductMap();
+  await createCustomerMap();
+}
+
+class User {
   final String uid;
   final String email;
   // Add more fields as needed
@@ -187,4 +200,61 @@ void retrieveAllData() async {
     required this.email,
     // Add more fields as needed
   });
+}
+
+Future<String> addProduct(String name, String sku , int price, String quantity) async {
+  try {
+    DocumentReference productRef =  await db.collection('Product').add({
+      'Name': name,
+      'SKU' : sku,
+      'Price': price,
+      'Quantity': quantity,
+    });
+
+    return 'Success ${productRef.id}';
+
+  } catch (e) {
+    print(e);
+    rethrow;
+  }
+}
+
+Future<String> updateProduct(String docId, String name, String sku ,String price, String quantity) async {
+  try {
+    await db.collection('Product').doc(docId).update({
+      'Name': name,
+      'SKU' : sku,
+      'Price': price,
+      'Quantity': quantity,
+    });
+    return "Success";
+
+  } catch (e) {
+    print(e);
+    return "Error";
+  }
+}
+
+Future<String> deleteProduct(String docId) async {
+  try {
+    await db.collection('Product').doc(docId).delete();
+    return "Success";
+
+  } catch (e) {
+    print(e);
+    return "Error";
+  }
+}
+
+Future<String> updateQuantity(String docId, String quantity) async {
+  try {
+    await db.collection('Product').doc(docId).update({
+      'Quantity': quantity,
+    });
+    return "Success";
+
+  } catch (e) {
+    print(e);
+    return "Error";
+  }
 }

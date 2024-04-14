@@ -371,6 +371,25 @@ class _ProductHomePageState extends State<ProductHomePage> {
                     ),
                   ),
                 ),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.03784057,
+                left: MediaQuery.of(context).size.width * 0.32552083,
+                child: IconButton(
+                  icon: Icon(Icons.refresh),
+                  color: Colors.white,
+                  onPressed: () async {
+                    products = [];
+                    List<String> Updatedproducts = await retrieveProductName();
+                    Map<String, String> UpdatedproductMap = await createProductMap();
+                    setState(() {
+                      products = Updatedproducts;
+                      productMap = UpdatedproductMap;
+                      _searchController.clear();
+                      _searchResults = [];
+                    });
+                  },
+                ),
+              )
             ],
           ),
         )));
