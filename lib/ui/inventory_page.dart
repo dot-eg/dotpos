@@ -39,6 +39,17 @@ class _InventoryPageState extends State<InventoryPage> {
             ),
           ),
           Positioned(
+            left: MediaQuery.of(context).size.width * 0.625,
+            top: 0 ,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.375,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.2),
+              ),
+            ),
+          ),
+          Positioned(
             //Inventory Header
             left: MediaQuery.of(context).size.width * 0.01953125,
             top: MediaQuery.of(context).size.height * 0.0298913,
@@ -50,7 +61,7 @@ class _InventoryPageState extends State<InventoryPage> {
           ),
           Positioned(
             left: MediaQuery.of(context).size.width * 0.8984375,
-            top: MediaQuery.of(context).size.height * 0.02673797,
+            top: MediaQuery.of(context).size.height * 0.02005348,
             child: IconButton(
               onPressed: () {
                 showDialog(
@@ -68,7 +79,10 @@ class _InventoryPageState extends State<InventoryPage> {
                             child: SizedBox(
                                 width: 150,
                                 height: 30,
-                                child: Text('Add Product', style: TextStyle(fontSize: 20, fontFamily: 'Hind Kochi'))),
+                                child: Text('Add Product',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'Hind Kochi'))),
                           ),
                           Positioned(
                             left: 20,
@@ -146,8 +160,11 @@ class _InventoryPageState extends State<InventoryPage> {
                                         int.parse(priceController.text),
                                         quantityController.text);
                                     if (result.contains("Success")) {
+                                      products = [];
+                                      List<String> newProducts =
+                                          await retrieveProductName();
                                       setState(() {
-                                        refreshAllData();
+                                        products = newProducts;
                                       });
                                       Navigator.of(context).pop();
                                     } else {
@@ -190,7 +207,7 @@ class _InventoryPageState extends State<InventoryPage> {
           ),
           Positioned(
             left: MediaQuery.of(context).size.width * 0.9375,
-            top: MediaQuery.of(context).size.height * 0.02673797,
+            top: MediaQuery.of(context).size.height * 0.02005348,
             child: IconButton(
               onPressed: () {
                 showDialog(
@@ -208,13 +225,16 @@ class _InventoryPageState extends State<InventoryPage> {
                           child: Text('Cancel'),
                         ),
                         TextButton(
-                          onPressed: () {
+                          onPressed: () async {
                             for (String product in selectedProducts) {
                               deleteProduct(productMap[product]!);
                             }
                             selectedProducts = [];
+                            products = [];
+                            List<String> newProducts =
+                                await retrieveProductName();
                             setState(() {
-                              refreshAllData();
+                              products = newProducts;
                             });
                             Navigator.of(context).pop();
                           },
@@ -228,6 +248,18 @@ class _InventoryPageState extends State<InventoryPage> {
               icon: Icon(Icons.remove_circle,
                   color: Colors.white,
                   size: MediaQuery.of(context).size.width * 0.03125),
+            ),
+          ),
+          Positioned(
+            left: MediaQuery.of(context).size.width * 0.84765625,
+            top: MediaQuery.of(context).size.height * 0.01069519,
+            child: IconButton(
+              onPressed: () {
+
+              },
+              icon: Icon(Icons.edit_attributes,
+                  color: Colors.white,
+                  size: MediaQuery.of(context).size.width * 0.04296875),
             ),
           ),
           Positioned(

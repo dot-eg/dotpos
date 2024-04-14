@@ -377,9 +377,13 @@ class _ProductHomePageState extends State<ProductHomePage> {
                 child: IconButton(
                   icon: Icon(Icons.refresh),
                   color: Colors.white,
-                  onPressed: () {
+                  onPressed: () async {
+                    products = [];
+                    List<String> Updatedproducts = await retrieveProductName();
+                    Map<String, String> UpdatedproductMap = await createProductMap();
                     setState(() {
-                      refreshAllData();
+                      products = Updatedproducts;
+                      productMap = UpdatedproductMap;
                       _searchController.clear();
                       _searchResults = [];
                     });
