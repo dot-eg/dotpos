@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
+import '../ui/text_styles.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -20,8 +21,21 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
+      appBar: AppBar(
+        title: Text('Account'),
+      ),
+      body: Stack(
+        children:[ 
+          Positioned(
+            top: 20,
+            left: 20,
+            child: SizedBox(
+              width: 700,
+              height: 50,
+              child: Text('Hello!, $currentUser', style: settingsHeader,),
+            ),
+            ),
+          Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('My Account Details'),
@@ -34,12 +48,13 @@ class _AccountPageState extends State<AccountPage> {
             ),
             Padding(padding: EdgeInsets.all(10)),
             ElevatedButton(
-              onPressed: _onLogout,
+              onPressed: () {},
               child: Text('Help'),
             ),
           ],
-        ),
-      ),
+        )
+        ],
+    )
     );
   }
 }
