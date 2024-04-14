@@ -2,9 +2,15 @@ import '../services/navi_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../ui/login_screen.dart';
+
+bool isLoggedIn = false;
+String currentUser = "";
+DateTime loginTime = DateTime.now();
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  
 
   Future<String> login(GlobalKey<FormState> formkey, String username, String pass, BuildContext context) async {
     try {
@@ -14,6 +20,9 @@ class AuthService {
       );
       final user = userCredential.user;
       if (user != null) {
+        isLoggedIn = true;
+        currentUser = username;
+        loginTime = DateTime.now();
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
@@ -32,8 +41,13 @@ class AuthService {
     return 'Incorrect username or password. Please try again.';
     }
 
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => LoginScreenPage(),
+      ),
+    );
     }
 
   Future<String> AddUser(String username, String pass, BuildContext context) async {

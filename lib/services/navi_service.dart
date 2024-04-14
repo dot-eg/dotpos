@@ -1,10 +1,10 @@
+import 'package:dotpos/ui/account_page.dart';
 import 'package:dotpos/ui/inventory_page.dart';
 import 'package:flutter/material.dart';
-import 'auth_service.dart';
 import '../ui/transaction_history.dart';
 import '../ui/product_home_page.dart';
-import '../ui/login_screen.dart';
 import '../ui/UI_settings/settings_navigation.dart';
+import '../services/auth_service.dart';
 
 class CurrentPage extends StatefulWidget {
   @override
@@ -12,14 +12,11 @@ class CurrentPage extends StatefulWidget {
 }
 
 class NavigationBar extends State<CurrentPage> {
-  final AuthService _authService = AuthService();
   var selectedIndex = 0;
-  bool _isLoggedIn = true;
 
   void _onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
-      _isLoggedIn = index != 4;
     });
   }
   
@@ -40,15 +37,14 @@ class NavigationBar extends State<CurrentPage> {
         page = SettingsPage();
         break;
       case 4:
-        page = LoginScreenPage();
-        _authService.signOut();
+        page = AccountPage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
 }
   return Scaffold(
       body: page,
-      bottomNavigationBar: _isLoggedIn ? BottomNavigationBar(
+      bottomNavigationBar: isLoggedIn ? BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
@@ -67,8 +63,8 @@ class NavigationBar extends State<CurrentPage> {
                 label: 'Settings',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.logout),
-                label: 'Log Out',
+                icon: Icon(Icons.account_circle),
+                label: 'Account',
               ),
             ],
         currentIndex: selectedIndex,

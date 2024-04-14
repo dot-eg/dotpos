@@ -380,10 +380,8 @@ class _ProductHomePageState extends State<ProductHomePage> {
                   onPressed: () async {
                     products = [];
                     List<String> Updatedproducts = await retrieveProductName();
-                    Map<String, String> UpdatedproductMap = await createProductMap();
                     setState(() {
                       products = Updatedproducts;
-                      productMap = UpdatedproductMap;
                       _searchController.clear();
                       _searchResults = [];
                     });
