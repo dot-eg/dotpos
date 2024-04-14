@@ -24,7 +24,7 @@ class _AccountPageState extends State<AccountPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Account Details'),
+            Text('My Account Details'),
             Text('Current user: $currentUser'),
             Text('Last login: $loginTime'),
             Padding(padding: EdgeInsets.all(10)),
