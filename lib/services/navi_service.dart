@@ -14,7 +14,7 @@ class CurrentPage extends StatefulWidget {
 class NavigationBar extends State<CurrentPage> {
   var selectedIndex = 0;
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
     });
@@ -37,7 +37,13 @@ class NavigationBar extends State<CurrentPage> {
         page = SettingsPage();
         break;
       case 4:
-        page = AccountPage();
+        page = AccountPage(
+          onSettingsPressed: () {
+            setState(() {
+              selectedIndex = 3;
+            });
+          },
+        );
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -70,7 +76,7 @@ class NavigationBar extends State<CurrentPage> {
         currentIndex: selectedIndex,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black,
-        onTap: _onItemTapped,
+        onTap: onItemTapped,
         backgroundColor: const Color.fromARGB(255, 122, 125, 128).withOpacity(0.5),
       ) : null,
     );

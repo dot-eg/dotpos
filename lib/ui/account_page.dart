@@ -4,6 +4,10 @@ import '../services/auth_service.dart';
 import '../ui/text_styles.dart';
 
 class AccountPage extends StatefulWidget {
+  final VoidCallback? onSettingsPressed;
+
+  AccountPage({this.onSettingsPressed});
+
   @override
   State<AccountPage> createState() => _AccountPageState();
 }
@@ -17,6 +21,8 @@ class _AccountPageState extends State<AccountPage> {
     });
     _authService.signOut(context);
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +53,7 @@ class _AccountPageState extends State<AccountPage> {
           //     Text('Last login: $loginTime'),
 
           Positioned(
-            top: 1000,
+            top: 400,
             left: 40,
             child: Column(
               children: [
@@ -82,7 +88,7 @@ class _AccountPageState extends State<AccountPage> {
                   width: 200,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: widget.onSettingsPressed,
                     child: Text('Settings'),
                   ),
                 ),
