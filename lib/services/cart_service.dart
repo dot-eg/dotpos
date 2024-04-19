@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'firestore_service.dart' as firestore_service;
+import 'firestore_service.dart';
 
 class CartModel extends ChangeNotifier {
   Map<String, int> _items = {};
@@ -13,7 +13,7 @@ class CartModel extends ChangeNotifier {
     } else {
       _items[item] = 1;
       if (!_prices.containsKey(item)) {
-        var productData = await firestore_service.retrieveProductData(firestore_service.productMap[item]!);
+        var productData = await retrieveProductData(productMap[item]!);
         _prices[item] = productData['Price'] != null ? productData['Price'].toDouble() : 0.0;
       }
     }

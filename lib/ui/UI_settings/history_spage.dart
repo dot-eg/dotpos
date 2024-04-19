@@ -3,6 +3,7 @@ import '../text_styles.dart';
 import '../../services/trans_service.dart';
 
 class History extends StatelessWidget {
+  final TransactionService transactionService = TransactionService();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -29,7 +30,7 @@ class History extends StatelessWidget {
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
-                                  clearAllTransactions();
+                                  transactionService.clearAllTransactions();
                                   Navigator.of(context).pop();
                                 },
                                 child: Text('I\'m Sure', style: TextStyle(color: Colors.red),),

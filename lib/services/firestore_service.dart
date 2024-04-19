@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-
 var db = FirebaseFirestore.instance;
 List<String> products = [];
 List<String> productIds = [];
@@ -190,17 +189,6 @@ void refreshAllData() async {
   await createCustomerMap();
 }
 
-class User {
-  final String uid;
-  final String email;
-  // Add more fields as needed
-
-  User({
-    required this.uid,
-    required this.email,
-    // Add more fields as needed
-  });
-}
 
 Future<String> addProduct(String name, String sku , int price, String quantity) async {
   try {

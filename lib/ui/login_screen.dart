@@ -122,9 +122,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: TextFormField(
                                         controller: _emailController,
-                                        onFieldSubmitted: (_) {
-                                          _login;
-                                        },
+                                        onFieldSubmitted: (value) => _login(),
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: 'Email',
@@ -162,9 +160,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                                       padding: EdgeInsets.all(8.0),
                                       child: TextFormField(
                                         controller: _passwordController,
-                                        onFieldSubmitted: (_) {
-                                          _login;
-                                        },
+                                        onFieldSubmitted: (value) => _login(),
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: 'Password',
