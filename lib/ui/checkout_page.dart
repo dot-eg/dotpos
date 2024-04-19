@@ -17,6 +17,7 @@ void openCheckoutPage(context, CartModel cart) {
 
 class CheckoutPage extends StatefulWidget {
   final CartModel cart;
+
   CheckoutPage({Key? key, required this.cart}) : super(key: key);
 
   @override
@@ -24,6 +25,8 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
+  final ReceiptService receiptService = ReceiptService();
+  final TransactionService transactionService = TransactionService();
   String MethoddropdownValue = 'Cash';
   String TaxesdropdownValue = '15%';
   final TextEditingController _nameController = TextEditingController();
@@ -787,7 +790,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     onPressed: () async {
                       if (_nameController.text.isEmpty ||
                           _emailController.text.isEmpty ||
-                          _phoneController.text.isEmpty || 
+                          _phoneController.text.isEmpty ||
                           _customerIDController.text.isEmpty) {
                         showDialog(
                           context: context,
@@ -807,7 +810,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           },
                         );
                       } else {
-                        String transactionid = await addTransaction(
+                        String transactionid =
+                            await transactionService.addTransaction(
                           DateTime.now(),
                           int.parse(_customerIDController.text),
                           widget.cart.getTotal() * 1.15,
@@ -838,7 +842,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      generateReceipt(
+                                      receiptService.generateReceipt(
                                         context,
                                         transactionid,
                                         _nameController.text,
