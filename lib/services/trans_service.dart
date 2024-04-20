@@ -12,6 +12,19 @@ Future<String> addTransaction(DateTime datetime, int customer_ID, double amount,
       'Amount': amount,
       'Items': cart.items,
     });
+
+    final productRef = firestore_service.db.collection('Product');
+    for (var entry in cart.items.entries) {
+      var productQuery = await productRef.where('Name', isEqualTo: entry.key).get();
+      if (productQuery.docs.isNotEmpty) {
+        var productDoc = productQuery.docs.first;
+        var currentQuantity = int.parse(productDoc.data()['Quantity'] as String);
+        await productDoc.reference.update({
+          'Quantity': (currentQuantity - entry.value).toString(),
+        });
+      }
+    }
+
     return docRef.id;
   } catch (e) {
     print(e);
