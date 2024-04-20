@@ -8,6 +8,7 @@ List<String> customerIds = [];
 List<String> customers = [];
 Map<String, String> productMap = {};
 Map<String, String> customerMap = {};
+List<String> outofstock = [];
 
 Future<List<String>> retrieveProductName() async {
   try {
@@ -163,7 +164,11 @@ Future<List<Map<String, dynamic>>> retrieveAllTransactions({String? date, String
     }
 
     QuerySnapshot querySnapshot = await query.get();
-    List<Map<String, dynamic>> transactions = querySnapshot.docs.map((doc) => doc.data()).toList().cast<Map<String, dynamic>>();
+    List<Map<String, dynamic>> transactions = querySnapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>? ?? {};
+      data['id'] = doc.id;
+      return data;
+    }).toList().cast<Map<String, dynamic>>();
     print(transactions);
     return transactions;
   } catch (e) {
@@ -176,17 +181,20 @@ Future<List<Map<String, dynamic>>> retrieveAllTransactions({String? date, String
 void retrieveAllData() async {
   await createProductMap();
   await createCustomerMap();
+  await getOutofStock();
 }
 
 void refreshAllData() async {
-  products = [];
-  productIds = [];
-  customerIds = [];
-  customers = [];
-  productMap = {};
-  customerMap = {};
+  products.clear();
+  productIds.clear();
+  customerIds.clear();
+  customers.clear();
+  productMap.clear();
+  customerMap.clear();
+  outofstock.clear();
   await createProductMap();
   await createCustomerMap();
+  await getOutofStock();
 }
 
 
@@ -244,5 +252,37 @@ Future<String> updateQuantity(String docId, String quantity) async {
   } catch (e) {
     print(e);
     return "Error";
+  }
+}
+
+Future<Map<String, dynamic>> retrieveTransactionData(String docId) async {
+  try {
+    final TdocRef = db.collection('Transaction').doc(docId);
+    DocumentSnapshot Transdoc = await TdocRef.get();
+    final Transdata = Transdoc.data() as Map<String, dynamic>;
+    print(Transdata);
+    return Transdata;
+  } catch (e) {
+    print(e);
+    return {};
+  }
+}
+
+Future<List<String>> getOutofStock() async {
+  try {
+    final collectionRef = db.collection('Product');
+    QuerySnapshot querySnapshot = await collectionRef.get();
+    for(var doc in querySnapshot.docs){
+      final data = doc.data() as Map<String, dynamic>;
+      int quantity = int.parse(data['Quantity']);
+      if(quantity == 0){
+        outofstock.add(data['Name'] as String);
+      }
+    }
+    print(outofstock);
+    return outofstock;
+  } catch (e) {
+    print(e);
+    return [];
   }
 }

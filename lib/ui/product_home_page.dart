@@ -16,6 +16,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
   TextEditingController _searchController = TextEditingController();
   List<String> _products = products;
   List<String> _searchResults = [];
+  List<String> poutofstock = outofstock;
   late SearchService _searchService;
   late CartModel cart;
 
@@ -309,7 +310,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                     ),
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () {
+                        onTap: poutofstock.contains(products[index]) ? null : () {
                           Provider.of<CartModel>(context, listen: false)
                               .add(products[index]);
                         },
@@ -320,7 +321,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.5),
+                            color: poutofstock.contains(products[index]) ? const Color.fromARGB(96, 107, 106, 106).withOpacity(0.5) : Colors.white.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(products[index], style: productsGrid),
@@ -380,10 +381,13 @@ class _ProductHomePageState extends State<ProductHomePage> {
                   onPressed: () async {
                     products = [];
                     List<String> Updatedproducts = await retrieveProductName();
+                    outofstock = [];
+                    poutofstock = await getOutofStock();
                     setState(() {
                       products = Updatedproducts;
                       _searchController.clear();
                       _searchResults = [];
+                      outofstock = poutofstock;
                     });
                   },
                 ),
