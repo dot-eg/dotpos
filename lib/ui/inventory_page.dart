@@ -20,6 +20,7 @@ class _InventoryPageState extends State<InventoryPage> {
   final skuController = TextEditingController();
   final priceController = TextEditingController();
   final quantityController = TextEditingController();
+  final newquantityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -226,40 +227,61 @@ class _InventoryPageState extends State<InventoryPage> {
             top: MediaQuery.of(context).size.height * 0.02005348,
             child: IconButton(
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Delete Products'),
-                      content: Text(
-                          'Are you sure you want to delete the selected products?'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            for (String product in selectedProducts) {
-                              deleteProduct(productMap[product]!);
-                            }
-                            selectedProducts = [];
-                            products = [];
-                            List<String> newProducts =
-                                await retrieveProductName();
-                            setState(() {
-                              products = newProducts;
-                            });
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('Delete'),
-                        ),
-                      ],
-                    );
-                  },
-                );
+                if (selectedProducts.isEmpty) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Error'),
+                        icon: Icon(Icons.error, color: Colors.red),
+                        content: Text('No products selected.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Delete Products'),
+                        content: Text(
+                            'Are you sure you want to delete the selected products?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              for (String product in selectedProducts) {
+                                deleteProduct(productMap[product]!);
+                              }
+                              selectedProducts = [];
+                              products = [];
+                              List<String> newProducts =
+                                  await retrieveProductName();
+                              setState(() {
+                                products = newProducts;
+                              });
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Delete'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
               },
               icon: Icon(Icons.remove_circle,
                   color: Colors.white,
@@ -270,7 +292,101 @@ class _InventoryPageState extends State<InventoryPage> {
             left: MediaQuery.of(context).size.width * 0.4921875,
             top: MediaQuery.of(context).size.height * 0.02005348,
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                if (selectedProducts.isEmpty) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Error'),
+                        icon: Icon(Icons.error, color: Colors.red),
+                        content: Text('No products selected.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                            child: SizedBox(
+                                width: 400,
+                                height: 200,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      left: 20,
+                                      top: 20,
+                                      child: SizedBox(
+                                          width: 150,
+                                          height: 30,
+                                          child: Text('Update Quantity',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontFamily: 'Hind Kochi'))),
+                                    ),
+                                    Positioned(
+                                        top: 50,
+                                        left: 20,
+                                        child: Text(
+                                          "Updating quantity of: $selectedProducts",
+                                        )),
+                                    Positioned(
+                                      left: 20,
+                                      top: 70,
+                                      child: SizedBox(
+                                        width: 350,
+                                        height: 60,
+                                        child: TextField(
+                                          controller: newquantityController,
+                                          decoration: InputDecoration(
+                                            labelText: 'New Quantity',
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 150,
+                                      left: 130,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Cancel'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () async {
+                                              for (String product
+                                                  in selectedProducts) {
+                                                updateQuantity(
+                                                    productMap[product]!,
+                                                    newquantityController.text);
+                                              }
+                                              selectedProducts = [];
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Update'),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )));
+                      });
+                }
+              },
               icon: Icon(Icons.swap_vert_circle,
                   color: Colors.white,
                   size: MediaQuery.of(context).size.width * 0.03125),
@@ -339,7 +455,7 @@ class _InventoryPageState extends State<InventoryPage> {
                       drawVerticalLine: true,
                       getDrawingHorizontalLine: (value) {
                         return FlLine(
-                          color:Colors.white,
+                          color: Colors.white,
                           strokeWidth: 1,
                         );
                       },
@@ -397,8 +513,7 @@ class _InventoryPageState extends State<InventoryPage> {
                     ),
                     borderData: FlBorderData(
                       show: true,
-                      border:
-                          Border.all(color: Colors.white, width: 1),
+                      border: Border.all(color: Colors.white, width: 1),
                     ),
                     minX: 0,
                     maxX: 11,
