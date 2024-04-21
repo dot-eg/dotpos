@@ -57,7 +57,7 @@ class _AccountPageState extends State<AccountPage> {
             ),
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.56772908,
+            top: MediaQuery.of(context).size.height * 0.5,
             left: MediaQuery.of(context).size.width * 0.03205128,
             child: Column(
               children: [

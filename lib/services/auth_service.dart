@@ -108,6 +108,23 @@ class AuthService {
   //     print(e);
   //     return 'An error occurred. Please try again.';
   //   }
+
+  String loginoffline(admin, context) {
+    if (admin == "admin") {
+      isLoggedIn = true;
+      currentUser = "admin";
+      loginTime = DateTime.now();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => CurrentPage(),
+          )
+          );});
+      return "";
+  } else {
+    return "Incorrect username or password. Please try again.";
+  }
+}
 }
 
 class User {
