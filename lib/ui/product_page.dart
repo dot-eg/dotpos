@@ -54,7 +54,7 @@ class ProductPage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height*0.6,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/dotpos-eg.appspot.com/o/placeholder.jpg?alt=media&token=c1924bd1-cdeb-4b74-8243-b83db7bef0be"),
+                    image: NetworkImage(productData['ImageURL'] ?? 'https://via.placeholder.com/150'),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -84,9 +84,27 @@ class ProductPage extends StatelessWidget {
                       top: 0,
                       child: SizedBox(
                         width: 238,
+                        height: 53,
+                        child: Text(
+                          'Details',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w700,
+                            height: 0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 0,
+                      top: 38,
+                      child: SizedBox(
+                        width: 238,
                         height: 34,
                         child: Text(
-                          'SKU:${productData['SKU'] ?? 'Default'}',
+                          'SKU: ${productData['SKU'] ?? 'Default'}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
@@ -99,12 +117,12 @@ class ProductPage extends StatelessWidget {
                     ),
                     Positioned(
                       left: 0,
-                      top: 34,
+                      top: 64,
                       child: SizedBox(
                         width: 238,
                         height: 32,
                         child: Text(
-                          'Price:${productData['Price'] ?? 'Default'}',
+                          'Price: EGP ${productData['Price'] ?? 'Default'}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
@@ -117,7 +135,7 @@ class ProductPage extends StatelessWidget {
                     ),
                     Positioned(
                       left: 0,
-                      top: 66,
+                      top: 90,
                       child: SizedBox(
                         width: 238,
                         height: 30,
@@ -163,6 +181,7 @@ class ProductPage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    
                     Positioned(
                       left: 0,
                       top: 44,
@@ -170,7 +189,7 @@ class ProductPage extends StatelessWidget {
                         width: 583,
                         height: 90,
                         child: Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam molestie luctus tellus sagittis aliquam. Duis eu justo urna. Nunc dictum nisi et ante vehicula scelerisque. Nullam sit amet nisl eu tellus aliquam dictum eu rhoncus magna. Phasellus porttitor nisi non enim rutrum, et efficitur nibh dignissim.',
+                          productData['Description'] ?? 'Default Description',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,

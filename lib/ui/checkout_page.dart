@@ -790,8 +790,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     onPressed: () async {
                       if (_nameController.text.isEmpty ||
                           _emailController.text.isEmpty ||
-                          _phoneController.text.isEmpty ||
-                          _customerIDController.text.isEmpty) {
+                          _phoneController.text.isEmpty) {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -810,10 +809,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           },
                         );
                       } else {
+                        bool customerExists = await firestore_service.customerExists(_phoneController.text);
+                        if (!customerExists){
+                          await firestore_service.addCustomer(_nameController.text, _emailController.text, _phoneController.text);
+                        }
                         String transactionid =
                             await transactionService.addTransaction(
                           DateTime.now(),
-                          int.parse(_customerIDController.text),
+                          int.parse(_phoneController.text),
                           widget.cart.getTotal() * 1.15,
                           widget.cart,
                         );

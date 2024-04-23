@@ -435,7 +435,7 @@ class _InventoryPageState extends State<InventoryPage> {
                               color: Colors.white.withOpacity(0.5),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                      child: Text(products[index], style: productsGrid),
+                      child: Text(products[index], style: productsGrid, textAlign: TextAlign.center,),
                     ),
                   );
                 },

@@ -324,7 +324,7 @@ class _ProductHomePageState extends State<ProductHomePage> {
                             color: poutofstock.contains(products[index]) ? const Color.fromARGB(96, 107, 106, 106).withOpacity(0.5) : Colors.white.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Text(products[index], style: productsGrid),
+                          child: Text(products[index], style: productsGrid, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,),
                         ),
                       );
                     },

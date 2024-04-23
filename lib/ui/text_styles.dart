@@ -53,7 +53,7 @@ TextStyle cartList = TextStyle(
 TextStyle productsGrid = TextStyle(
   color: Colors.black,
   fontSize: 20,
-  fontFamily: 'Hind Kochi'
+  fontFamily: 'Hind Kochi',
 );
 //////////////////////////////////////////
 
