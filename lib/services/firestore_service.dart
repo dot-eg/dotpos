@@ -286,3 +286,20 @@ Future<List<String>> getOutofStock() async {
     return [];
   }
 }
+
+Future<bool> customerExists(String phone) async {
+  try {
+    final collectionRef = db.collection('Customer');
+    QuerySnapshot querySnapshot = await collectionRef.get();
+    for(var doc in querySnapshot.docs){
+      final data = doc.data() as Map<String, dynamic>;
+      if(data['Phone_no'] == phone){
+        return true;
+      }
+    }
+    return false;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}

@@ -3,12 +3,12 @@ import 'cart_service.dart';
 import 'firestore_service.dart' as firestore_service;
 
 class TransactionService{
-Future<String> addTransaction(DateTime datetime, int customer_ID, double amount, CartModel cart) async {
+Future<String> addTransaction(DateTime datetime, int phone, double amount, CartModel cart) async {
   try {
     final transactionRef = firestore_service.db.collection('Transaction');
     DocumentReference docRef = await transactionRef.add({
       'Datetime': datetime,
-      'Customer_ID': customer_ID,
+      'Phone Number': phone,
       'Amount': amount,
       'Items': cart.items,
     });

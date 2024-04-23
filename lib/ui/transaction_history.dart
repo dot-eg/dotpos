@@ -19,7 +19,9 @@ class _HistoryPageState extends State<HistoryPage> {
   void initState() {
     super.initState();
     transactionsFuture = retrieveAllTransactions();
-    page = Center(child: Text('Select a transaction to view'),);
+    page = Center(
+      child: Text('Select a transaction to view'),
+    );
   }
 
   @override
@@ -108,7 +110,7 @@ class _HistoryPageState extends State<HistoryPage> {
                             title: Text('Transaction ${index + 1}',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             subtitle: Text(
-                                'Customer ID: ${transaction['Customer_ID']}\n'
+                                'Customer ID: ${transaction['Phone Number']}\n'
                                 'Amount: ${transaction['Amount']}\n'
                                 'Date: $formattedDate\n'
                                 'Products: ${transaction['Items']}'),
@@ -171,9 +173,42 @@ class TransactionDetails extends StatelessWidget {
         ),
         child: Stack(children: [
           Positioned(
-            left: MediaQuery.of(context).size.width * 0.05,
+            left: MediaQuery.of(context).size.width * 0.03,
             top: MediaQuery.of(context).size.height * 0.05,
-            child: Text('Transaction Details: $transData', style: TextStyle(color: Colors.white),),
+            child: Text(
+              'Transaction Details',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: 'Hind Kochi',
+                fontWeight: FontWeight.bold,
+                height: 0,
+              ),
+            ),
+          ),
+          Positioned(
+            left: MediaQuery.of(context).size.width * 0.03,
+            top: MediaQuery.of(context).size.height * 0.1,
+            child: Text("Customer ID: ${transData['Phone Number']}",
+                style: TextStyle(color: Colors.white)),
+          ),
+          Positioned(
+            left: MediaQuery.of(context).size.width * 0.03,
+            top: MediaQuery.of(context).size.height * 0.13,
+            child: Text("Amount: ${transData['Amount']}",
+                style: TextStyle(color: Colors.white)),
+          ),
+          Positioned(
+            left: MediaQuery.of(context).size.width * 0.03,
+            top: MediaQuery.of(context).size.height * 0.16,
+            child: Text("Date: ${transData['Datetime']}",
+                style: TextStyle(color: Colors.white)),
+          ),
+          Positioned(
+            left: MediaQuery.of(context).size.width * 0.03,
+            top: MediaQuery.of(context).size.height * 0.19,
+            child: Text("Products: ${transData['Items']}",
+                style: TextStyle(color: Colors.white)),
           ),
         ]),
       ),
