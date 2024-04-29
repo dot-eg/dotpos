@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/firestore_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'product_page.dart';
 import 'text_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -435,7 +436,11 @@ class _InventoryPageState extends State<InventoryPage> {
                               color: Colors.white.withOpacity(0.5),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                      child: Text(products[index], style: productsGrid, textAlign: TextAlign.center,),
+                      child: Text(
+                        products[index],
+                        style: productsGrid,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   );
                 },
@@ -443,111 +448,162 @@ class _InventoryPageState extends State<InventoryPage> {
             ),
           ),
           Positioned(
-              top: MediaQuery.of(context).size.height * 0.1671123,
-              left: MediaQuery.of(context).size.width * 0.6484375,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.3125,
-                height: MediaQuery.of(context).size.height * 0.40106952,
-                child: LineChart(
-                  LineChartData(
-                    gridData: FlGridData(
-                      show: true,
-                      drawVerticalLine: true,
-                      getDrawingHorizontalLine: (value) {
-                        return FlLine(
-                          color: Colors.white,
-                          strokeWidth: 1,
+            top: MediaQuery.of(context).size.height * 0.1671123,
+            left: MediaQuery.of(context).size.width * 0.6484375,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.3125,
+              height: MediaQuery.of(context).size.height,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.3125,
+                      height: MediaQuery.of(context).size.height * 0.40106952,
+                      child: LineChart(
+                        LineChartData(
+                          gridData: FlGridData(
+                            show: true,
+                            drawVerticalLine: true,
+                            getDrawingHorizontalLine: (value) {
+                              return FlLine(
+                                color: Colors.white,
+                                strokeWidth: 1,
+                              );
+                            },
+                            getDrawingVerticalLine: (value) {
+                              return FlLine(
+                                color: Colors.white,
+                                strokeWidth: 1,
+                              );
+                            },
+                          ),
+                          titlesData: FlTitlesData(
+                            show: true,
+                            bottomTitles: SideTitles(
+                              showTitles: true,
+                              reservedSize: 22,
+                              getTextStyles: (context, value) => const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                              getTitles: (value) {
+                                switch (value.toInt()) {
+                                  case 2:
+                                    return 'APR';
+                                  case 5:
+                                    return 'JUN';
+                                  case 8:
+                                    return 'SEP';
+                                }
+                                return '';
+                              },
+                              margin: 8,
+                            ),
+                            leftTitles: SideTitles(
+                              showTitles: true,
+                              getTextStyles: (context, value) => const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
+                              getTitles: (value) {
+                                switch (value.toInt()) {
+                                  case 1:
+                                    return '10k';
+                                  case 3:
+                                    return '30k';
+                                  case 5:
+                                    return '50k';
+                                }
+                                return '';
+                              },
+                              reservedSize: 28,
+                              margin: 12,
+                            ),
+                          ),
+                          borderData: FlBorderData(
+                            show: true,
+                            border: Border.all(color: Colors.white, width: 1),
+                          ),
+                          minX: 0,
+                          maxX: 11,
+                          minY: 0,
+                          maxY: 6,
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: [
+                                FlSpot(0, 3),
+                                FlSpot(2.6, 2),
+                                FlSpot(4.9, 5),
+                                FlSpot(6.8, 3.1),
+                                FlSpot(8, 4),
+                                FlSpot(9.5, 3),
+                                FlSpot(11, 4),
+                              ],
+                              isCurved: true,
+                              colors: gradientColors,
+                              barWidth: 5,
+                              isStrokeCapRound: true,
+                              dotData: FlDotData(
+                                show: false,
+                              ),
+                              belowBarData: BarAreaData(
+                                show: true,
+                                colors: gradientColors
+                                    .map((color) => color.withOpacity(0.3))
+                                    .toList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    StreamBuilder<QuerySnapshot>(
+                      stream: getMostSoldProducts(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return Text('Something went wrong');
+                        }
+
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Text("Loading");
+                        }
+
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.3125,
+                          height: MediaQuery.of(context).size.height * 0.40106952,
+                          child: DataTable(
+                            columns: const <DataColumn>[
+                              DataColumn(
+                                label: Text('Product Name'),
+                              ),
+                              DataColumn(
+                                label: Text('Times Sold'),
+                              ),
+                            ],
+                            rows: snapshot.data?.docs
+                                .map((DocumentSnapshot document) {
+                              Map<String, dynamic> data =
+                                  document.data() as Map<String, dynamic>;
+                              return DataRow(
+                                cells: <DataCell>[
+                                  DataCell(Text(data['Name'])),
+                                  DataCell(Text(data['Times Sold'].toString())),
+                                ],
+                              );
+                            }).toList() ?? [],
+                          ),
                         );
                       },
-                      getDrawingVerticalLine: (value) {
-                        return FlLine(
-                          color: Colors.white,
-                          strokeWidth: 1,
-                        );
-                      },
                     ),
-                    titlesData: FlTitlesData(
-                      show: true,
-                      bottomTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 22,
-                        getTextStyles: (context, value) => const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                        getTitles: (value) {
-                          switch (value.toInt()) {
-                            case 2:
-                              return 'APR';
-                            case 5:
-                              return 'JUN';
-                            case 8:
-                              return 'SEP';
-                          }
-                          return '';
-                        },
-                        margin: 8,
-                      ),
-                      leftTitles: SideTitles(
-                        showTitles: true,
-                        getTextStyles: (context, value) => const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                        getTitles: (value) {
-                          switch (value.toInt()) {
-                            case 1:
-                              return '10k';
-                            case 3:
-                              return '30k';
-                            case 5:
-                              return '50k';
-                          }
-                          return '';
-                        },
-                        reservedSize: 28,
-                        margin: 12,
-                      ),
-                    ),
-                    borderData: FlBorderData(
-                      show: true,
-                      border: Border.all(color: Colors.white, width: 1),
-                    ),
-                    minX: 0,
-                    maxX: 11,
-                    minY: 0,
-                    maxY: 6,
-                    lineBarsData: [
-                      LineChartBarData(
-                        spots: [
-                          FlSpot(0, 3),
-                          FlSpot(2.6, 2),
-                          FlSpot(4.9, 5),
-                          FlSpot(6.8, 3.1),
-                          FlSpot(8, 4),
-                          FlSpot(9.5, 3),
-                          FlSpot(11, 4),
-                        ],
-                        isCurved: true,
-                        colors: gradientColors,
-                        barWidth: 5,
-                        isStrokeCapRound: true,
-                        dotData: FlDotData(
-                          show: false,
-                        ),
-                        belowBarData: BarAreaData(
-                          show: true,
-                          colors: gradientColors
-                              .map((color) => color.withOpacity(0.3))
-                              .toList(),
-                        ),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          )
         ]),
       ),
     );

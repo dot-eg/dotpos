@@ -76,7 +76,7 @@ class ProductPage extends StatelessWidget {
               top: 266,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width*0.3,
-                height: MediaQuery.of(context).size.height*0.15,
+                height: MediaQuery.of(context).size.height*0.2,
                 child: Stack(
                   children: [
                     Positioned(
@@ -141,6 +141,24 @@ class ProductPage extends StatelessWidget {
                         height: 30,
                         child: Text(
                           'Available Quantity: ${productData['Quantity'] ?? 'Default'}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontFamily: 'Hind Kochi',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 0,
+                      top: 116,
+                      child: SizedBox(
+                        width: 238,
+                        height: 30,
+                        child: Text(
+                          'Times Sold: ${productData['Times Sold'] ?? 'Untracked'}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,

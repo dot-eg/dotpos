@@ -303,3 +303,10 @@ Future<bool> customerExists(String phone) async {
     return false;
   }
 }
+
+Stream<QuerySnapshot> getMostSoldProducts() {
+    return db
+      .collection('Product')
+      .orderBy('Times Sold', descending: true)
+      .snapshots();
+  }

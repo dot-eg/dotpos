@@ -19,8 +19,10 @@ Future<String> addTransaction(DateTime datetime, int phone, double amount, CartM
       if (productQuery.docs.isNotEmpty) {
         var productDoc = productQuery.docs.first;
         var currentQuantity = int.parse(productDoc.data()['Quantity'] as String);
+        var timesSold = productDoc.data()['Times Sold'] != null ? productDoc.data()['Times Sold'] as int : 0;
         await productDoc.reference.update({
           'Quantity': (currentQuantity - entry.value).toString(),
+          'Times Sold': timesSold + entry.value,
         });
       }
     }
@@ -61,4 +63,7 @@ Future<void> clearAllTransactions() async {
     print(e);
   }
 }
+
+
+
 }
