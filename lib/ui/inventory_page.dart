@@ -1,9 +1,9 @@
+import 'package:dotpos/services/analytics_service.dart';
 import 'package:flutter/material.dart';
 import '../services/firestore_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'product_page.dart';
 import 'text_styles.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 List<Color> gradientColors = [
   Color(0xff23b6e6),
@@ -16,6 +16,7 @@ class InventoryPage extends StatefulWidget {
 }
 
 class _InventoryPageState extends State<InventoryPage> {
+  final AnalyticsService analyticsService = AnalyticsService();
   List<String> selectedProducts = [];
   final nameController = TextEditingController();
   final skuController = TextEditingController();
@@ -451,115 +452,8 @@ class _InventoryPageState extends State<InventoryPage> {
               ),
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.14,
-              left: MediaQuery.of(context).size.width * 0.6484375,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.3125,
-                height: MediaQuery.of(context).size.height * 0.35,
-                child: LineChart(
-                  LineChartData(
-                    gridData: FlGridData(
-                      show: true,
-                      drawVerticalLine: true,
-                      getDrawingHorizontalLine: (value) {
-                        return FlLine(
-                          color: Colors.white,
-                          strokeWidth: 1,
-                        );
-                      },
-                      getDrawingVerticalLine: (value) {
-                        return FlLine(
-                          color: Colors.white,
-                          strokeWidth: 1,
-                        );
-                      },
-                    ),
-                    titlesData: FlTitlesData(
-                      show: true,
-                      bottomTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 22,
-                        getTextStyles: (context, value) => const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                        getTitles: (value) {
-                          switch (value.toInt()) {
-                            case 2:
-                              return 'APR';
-                            case 5:
-                              return 'JUN';
-                            case 8:
-                              return 'SEP';
-                          }
-                          return '';
-                        },
-                        margin: 8,
-                      ),
-                      leftTitles: SideTitles(
-                        showTitles: true,
-                        getTextStyles: (context, value) => const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                        getTitles: (value) {
-                          switch (value.toInt()) {
-                            case 1:
-                              return '10k';
-                            case 3:
-                              return '30k';
-                            case 5:
-                              return '50k';
-                          }
-                          return '';
-                        },
-                        reservedSize: 28,
-                        margin: 12,
-                      ),
-                    ),
-                    borderData: FlBorderData(
-                      show: true,
-                      border: Border.all(color: Colors.white, width: 1),
-                    ),
-                    minX: 0,
-                    maxX: 11,
-                    minY: 0,
-                    maxY: 6,
-                    lineBarsData: [
-                      LineChartBarData(
-                        spots: [
-                          FlSpot(0, 3),
-                          FlSpot(2.6, 2),
-                          FlSpot(4.9, 5),
-                          FlSpot(6.8, 3.1),
-                          FlSpot(8, 4),
-                          FlSpot(9.5, 3),
-                          FlSpot(11, 4),
-                        ],
-                        isCurved: true,
-                        colors: gradientColors,
-                        barWidth: 5,
-                        isStrokeCapRound: true,
-                        dotData: FlDotData(
-                          show: false,
-                        ),
-                        belowBarData: BarAreaData(
-                          show: true,
-                          colors: gradientColors
-                              .map((color) => color.withOpacity(0.3))
-                              .toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              left: MediaQuery.of(context).size.width * 0.6484375,
-              top: MediaQuery.of(context).size.height * 0.52976791,
+              left: 1000,
+              top: 80,
               child: StreamBuilder<QuerySnapshot>(
                 stream: getMostSoldProducts(),
                 builder: (BuildContext context,
@@ -572,7 +466,7 @@ class _InventoryPageState extends State<InventoryPage> {
                     return Text("Loading");
                   }
 
-                  return  Container(
+                  return Container(
                     width: MediaQuery.of(context).size.width * 0.3125,
                     height: MediaQuery.of(context).size.height * 0.35,
                     decoration: BoxDecoration(
@@ -603,6 +497,60 @@ class _InventoryPageState extends State<InventoryPage> {
                   );
                 },
               ),
+            ),
+            Positioned(
+              left: 1000,
+              top: 375,
+              child: StreamBuilder<DocumentSnapshot>(
+                stream:
+                    getSalesReport(), // Replace 'your-document-id' with the ID of your document
+                builder: (BuildContext context,
+                    AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text("Loading");
+                  }
+
+                  Map<String, dynamic> data =
+                      snapshot.data!.data() as Map<String, dynamic>;
+
+                  return Container(
+                    width: MediaQuery.of(context).size.width * 0.3125,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                    ),
+                    child: DataTable(
+                      columns: const <DataColumn>[
+                        DataColumn(
+                          label: Text('Total Transactions'),
+                        ),
+                        DataColumn(
+                          label: Text('Total Revenue'),
+                        ),
+                      ],
+                      rows: <DataRow>[
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text(
+                                "${data['Sales'].toString()} Sales")), // Replace 'Total Transactions' with the actual field name in your document
+                            DataCell(Text(
+                                "${data['Total Revenue'].toString()} EGP")), // Replace 'Total Revenue' with the actual field name in your document
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            Positioned(
+              top: 700,
+              left: 1110,
+              child: Text("Current Sales ID: ${analyticsService.currentdoc}", style: TextStyle(color: Colors.white),),
             )
           ],
         ),

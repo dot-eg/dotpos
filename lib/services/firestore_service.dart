@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import "analytics_service.dart";
 
 var db = FirebaseFirestore.instance;
 List<String> products = [];
@@ -310,3 +311,11 @@ Stream<QuerySnapshot> getMostSoldProducts() {
       .orderBy('Times Sold', descending: true)
       .snapshots();
   }
+
+Stream<DocumentSnapshot> getSalesReport() {
+  return db
+    .collection('Sales Reporting')
+    .doc(AnalyticsService().currentdoc)
+    .snapshots();
+}
+    

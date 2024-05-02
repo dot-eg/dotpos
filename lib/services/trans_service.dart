@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dotpos/services/analytics_service.dart';
 import 'cart_service.dart';
 import 'firestore_service.dart' as firestore_service;
 
 class TransactionService{
+  final AnalyticsService analyticsService = AnalyticsService();
+
 Future<String> addTransaction(DateTime datetime, int phone, double amount, CartModel cart) async {
   try {
     final transactionRef = firestore_service.db.collection('Transaction');
@@ -24,8 +27,11 @@ Future<String> addTransaction(DateTime datetime, int phone, double amount, CartM
           'Quantity': (currentQuantity - entry.value).toString(),
           'Times Sold': timesSold + entry.value,
         });
+
       }
     }
+
+    analyticsService.autoUpdateSalesReport(1, amount);
 
     return docRef.id;
   } catch (e) {
