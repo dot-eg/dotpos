@@ -9,12 +9,18 @@ import '../services/analytics_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   final AnalyticsService analyticsService = AnalyticsService();
   retrieveAllData();
-  analyticsService.createSalesReport();
+
+  bool isEnabled = await analyticsService.getIsEnabled();
+
+  if (isEnabled) {
+    await analyticsService.createSalesReport();
+  }
+
   runApp(MyApp());
 }
 

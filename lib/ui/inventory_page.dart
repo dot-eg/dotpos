@@ -5,10 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'product_page.dart';
 import 'text_styles.dart';
 
-List<Color> gradientColors = [
-  Color(0xff23b6e6),
-  Color(0xff02d39a),
-];
 
 class InventoryPage extends StatefulWidget {
   @override
@@ -503,7 +499,7 @@ class _InventoryPageState extends State<InventoryPage> {
               top: 375,
               child: StreamBuilder<DocumentSnapshot>(
                 stream:
-                    getSalesReport(), // Replace 'your-document-id' with the ID of your document
+                    getSalesReport(),
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (snapshot.hasError) {
@@ -514,6 +510,9 @@ class _InventoryPageState extends State<InventoryPage> {
                     return Text("Loading");
                   }
 
+                  if (snapshot.data == null || snapshot.data!.data() == null){
+                    return Text("No Sales Report Available, Create one to view analytics");
+                  } else {
                   Map<String, dynamic> data =
                       snapshot.data!.data() as Map<String, dynamic>;
 
@@ -544,6 +543,7 @@ class _InventoryPageState extends State<InventoryPage> {
                       ],
                     ),
                   );
+                  }
                 },
               ),
             ),
