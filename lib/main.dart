@@ -5,13 +5,22 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import '../services/firestore_service.dart';
+import '../services/analytics_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final AnalyticsService analyticsService = AnalyticsService();
   retrieveAllData();
+
+  bool isEnabled = await analyticsService.getIsEnabled();
+
+  if (isEnabled) {
+    await analyticsService.createSalesReport();
+  }
+
   runApp(MyApp());
 }
 

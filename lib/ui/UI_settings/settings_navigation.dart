@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'about_spage.dart';
-import 'general_spage.dart';
 import 'users_spage.dart';
 import 'history_spage.dart';
-import 'personalization_spage.dart';
+import 'analytics_spage.dart';
 import '../text_styles.dart';
 
 
@@ -21,18 +20,15 @@ class _SettingsPageState extends State<SettingsPage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = General();
-        break;
-      case 1:
         page = Users();
         break;
-      case 2:
+      case 1:
         page = History();
         break;
-      case 3:
-        page = Personalization();
+      case 2:
+        page = AnalyticsPage();
         break;
-      case 4:
+      case 3:
         page = About();
         break;
       default:
@@ -57,10 +53,6 @@ class _SettingsPageState extends State<SettingsPage> {
               selectedIconTheme: IconThemeData(color: Colors.black),
               destinations: [
                 NavigationRailDestination(
-                  icon: Icon(Icons.settings, color: Colors.white,),
-                  label: Text('General', style: settingsNavTextStyle,),
-                ),
-                NavigationRailDestination(
                   icon: Icon(Icons.person, color: Colors.white,),
                   label: Text('Users', style: settingsNavTextStyle,),
                 ),
@@ -69,8 +61,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   label: Text('History', style: settingsNavTextStyle,),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.color_lens, color: Colors.white,),
-                  label: Text('Personalization', style: settingsNavTextStyle,),
+                  icon: Icon(Icons.analytics_outlined, color: Colors.white,),
+                  label: Text('Analytics', style: settingsNavTextStyle,),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.info, color: Colors.white,),
