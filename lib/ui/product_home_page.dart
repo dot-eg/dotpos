@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/cart_service.dart';
 import 'package:provider/provider.dart';
 import '../services/firestore_service.dart';
+import '../services/notification_service.dart';
 import 'text_styles.dart';
 import '../services/search_service.dart';
 import 'product_page.dart';
@@ -13,18 +14,29 @@ class ProductHomePage extends StatefulWidget {
 }
 
 class _ProductHomePageState extends State<ProductHomePage> {
+  NotificationService _notificationService = NotificationService();
   TextEditingController _searchController = TextEditingController();
   List<String> _products = products;
   List<String> _searchResults = [];
   List<String> poutofstock = outofstock;
   late SearchService _searchService;
   late CartModel cart;
+  ValueNotifier<bool> _firstopen = ValueNotifier(true);
 
   @override
   void initState() {
     super.initState();
     _searchService = SearchService(_products);
     _searchController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_firstopen.value) {
+      _notificationService.showLowQuantityNotification(context);
+      _firstopen.value = false;
+    }
   }
 
   @override
@@ -310,10 +322,12 @@ class _ProductHomePageState extends State<ProductHomePage> {
                     ),
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: poutofstock.contains(products[index]) ? null : () {
-                          Provider.of<CartModel>(context, listen: false)
-                              .add(products[index]);
-                        },
+                        onTap: poutofstock.contains(products[index])
+                            ? null
+                            : () {
+                                Provider.of<CartModel>(context, listen: false)
+                                    .add(products[index]);
+                              },
                         onLongPress: () {
                           String selected = productMap[products[index]]!;
                           openProductPage(context, selected);
@@ -321,10 +335,19 @@ class _ProductHomePageState extends State<ProductHomePage> {
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: poutofstock.contains(products[index]) ? const Color.fromARGB(96, 107, 106, 106).withOpacity(0.5) : Colors.white.withOpacity(0.5),
+                            color: poutofstock.contains(products[index])
+                                ? const Color.fromARGB(96, 107, 106, 106)
+                                    .withOpacity(0.5)
+                                : Colors.white.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Text(products[index], style: productsGrid, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,),
+                          child: Text(
+                            products[index],
+                            style: productsGrid,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       );
                     },

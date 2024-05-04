@@ -21,4 +21,5 @@ linter:
     library_private_types_in_public_api: false
     avoid_unnecessary_containers: false
     non_constant_identifier_names: false
+    avoid_web_libraries_in_flutter: false
                             

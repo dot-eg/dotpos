@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dotpos/services/notification_service.dart';
 import 'package:intl/intl.dart';
 import "analytics_service.dart";
 import "dart:async";
@@ -14,6 +15,7 @@ Map<String, String> usermap = {};
 Map<String, String> productMap = {};
 Map<String, String> customerMap = {};
 List<String> outofstock = [];
+List<String> lowquantity = [];
 
 Future<List<String>> retreiveUserIDs() async {
   try {
@@ -248,6 +250,7 @@ void retrieveAllData() async {
   await createCustomerMap();
   await getOutofStock();
   await createUserMap();
+  await getlowquantity();
 }
 
 void refreshAllData() async {
@@ -352,6 +355,31 @@ Future<List<String>> getOutofStock() async {
     return [];
   }
 }
+
+Future<List<String>> getlowquantity() async {
+  NotificationService notificationService = NotificationService();
+  try {
+    String num = await notificationService.getQuantityThreshold();
+    int number = int.parse(num); 
+    print("Quantity Threshold : $number");
+    final collectionRef = db.collection('Product');
+    QuerySnapshot querySnapshot = await collectionRef.get();
+    lowquantity.clear();
+    for(var doc in querySnapshot.docs){
+      final data = doc.data() as Map<String, dynamic>;
+      int quantity = int.parse(data['Quantity']);
+      if(quantity < number){
+        lowquantity.add(data['Name'] as String);
+      }
+    }
+    print("LowQuantity : $lowquantity");
+    return lowquantity;
+  } catch (e) {
+    print(e);
+    return [];
+  }
+}
+
 
 Future<bool> customerExists(String phone) async {
   try {

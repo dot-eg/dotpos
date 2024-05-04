@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'product_page.dart';
 import 'text_styles.dart';
 
-
 class InventoryPage extends StatefulWidget {
   @override
   _InventoryPageState createState() => _InventoryPageState();
@@ -14,11 +13,23 @@ class InventoryPage extends StatefulWidget {
 class _InventoryPageState extends State<InventoryPage> {
   final AnalyticsService analyticsService = AnalyticsService();
   List<String> selectedProducts = [];
+  List<String> lowquantityProducts = [];
   final nameController = TextEditingController();
   final skuController = TextEditingController();
   final priceController = TextEditingController();
   final quantityController = TextEditingController();
   final newquantityController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    lowquantityProducts.clear();
+    getlowquantity().then((value) {
+      setState(() {
+        lowquantityProducts = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -464,17 +475,17 @@ class _InventoryPageState extends State<InventoryPage> {
 
                   return Container(
                     width: MediaQuery.of(context).size.width * 0.3125,
-                    height: MediaQuery.of(context).size.height * 0.35,
+                    height: MediaQuery.of(context).size.height * 0.255,
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
                     ),
                     child: DataTable(
                       columns: const <DataColumn>[
                         DataColumn(
-                          label: Text('Product Name'),
+                          label: Text('Product Name', style: TextStyle(color: Colors.white)),
                         ),
                         DataColumn(
-                          label: Text('Times Sold'),
+                          label: Text('Times Sold', style: TextStyle(color: Colors.white),),
                         ),
                       ],
                       rows: snapshot.data?.docs
@@ -483,8 +494,8 @@ class _InventoryPageState extends State<InventoryPage> {
                                 document.data() as Map<String, dynamic>;
                             return DataRow(
                               cells: <DataCell>[
-                                DataCell(Text(data['Name'])),
-                                DataCell(Text(data['Times Sold'].toString())),
+                                DataCell(Text(data['Name'], style: TextStyle(color: Colors.white),)),
+                                DataCell(Text(data['Times Sold'].toString(), style: TextStyle(color: Colors.white),)),
                               ],
                             );
                           }).toList() ??
@@ -496,10 +507,9 @@ class _InventoryPageState extends State<InventoryPage> {
             ),
             Positioned(
               left: 1000,
-              top: 375,
+              top: 300,
               child: StreamBuilder<DocumentSnapshot>(
-                stream:
-                    getSalesReport(),
+                stream: getSalesReport(),
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (snapshot.hasError) {
@@ -510,47 +520,91 @@ class _InventoryPageState extends State<InventoryPage> {
                     return Text("Loading");
                   }
 
-                  if (snapshot.data == null || snapshot.data!.data() == null){
-                    return Text("No Sales Report Available, Create one to view analytics");
+                  if (snapshot.data == null || snapshot.data!.data() == null) {
+                    return Text(
+                        "No Sales Report Available, Create one to view analytics");
                   } else {
-                  Map<String, dynamic> data =
-                      snapshot.data!.data() as Map<String, dynamic>;
+                    Map<String, dynamic> data =
+                        snapshot.data!.data() as Map<String, dynamic>;
 
-                  return Container(
-                    width: MediaQuery.of(context).size.width * 0.3125,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                    ),
-                    child: DataTable(
-                      columns: const <DataColumn>[
-                        DataColumn(
-                          label: Text('Total Transactions'),
-                        ),
-                        DataColumn(
-                          label: Text('Total Revenue'),
-                        ),
-                      ],
-                      rows: <DataRow>[
-                        DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text(
-                                "${data['Sales'].toString()} Sales")), // Replace 'Total Transactions' with the actual field name in your document
-                            DataCell(Text(
-                                "${data['Total Revenue'].toString()} EGP")), // Replace 'Total Revenue' with the actual field name in your document
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
+                    return Container(
+                      width: MediaQuery.of(context).size.width * 0.3125,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                      ),
+                      child: DataTable(
+                        columns: const <DataColumn>[
+                          DataColumn(
+                            label: Text(
+                              'Total Transactions',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Total Revenue',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ],
+                        rows: <DataRow>[
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text(
+                                  "${data['Sales'].toString()} Sales", style: TextStyle(color: Colors.white) ,)), 
+                              DataCell(Text(
+                                  "${data['Total Revenue'].toString()} EGP", style: TextStyle(color: Colors.white),)),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
                   }
                 },
               ),
             ),
             Positioned(
+              left: 1000,
+              top: 450,
+              child: Text(
+                "Low Quantity Products",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Hind Kochi',
+                    fontSize: 20),
+              ),
+            ),
+            Positioned(
+              top: 500,
+              left: 1000,
+              child: Container(
+                height: 200,
+                width: 480,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(8.0), // Adjust the padding as needed
+                  child: ListView.builder(
+                    itemCount: lowquantityProducts.length,
+                    itemBuilder: (context, index) {
+                      return Text(
+                        lowquantityProducts[index],
+                        style: TextStyle(color: Colors.white),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
               top: 700,
               left: 1110,
-              child: Text("Current Sales ID: ${analyticsService.currentdoc}", style: TextStyle(color: Colors.white),),
+              child: Text(
+                "Current Sales ID: ${analyticsService.currentdoc}",
+                style: TextStyle(color: Colors.white),
+              ),
             )
           ],
         ),

@@ -11,23 +11,45 @@ class AnalyticsPage extends StatefulWidget {
 class _AnalyticsPageState extends State<AnalyticsPage> {
   final AnalyticsService analyticsService = AnalyticsService();
   bool _isEnabled = false;
+  bool _notifcationsEnabled = false;
+  TextEditingController quantityController = TextEditingController();
+  final FocusNode _quantityFocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _loadSwitchState();
+    _quantityFocusNode.addListener(_saveQuantity);
+  }
+
+  @override
+  void dispose(){
+    _quantityFocusNode.removeListener(_saveQuantity);
+    _quantityFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _saveQuantity() async {
+    if (!_quantityFocusNode.hasFocus) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('quantity', quantityController.text);
+    }
   }
 
   void _loadSwitchState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String quantity = (prefs.getString('quantity') ?? "0");
     setState(() {
       _isEnabled = prefs.getBool('isEnabled') ?? false;
+      _notifcationsEnabled = prefs.getBool('notifcationsEnabled') ?? false;
+      quantityController.text = quantity;
     });
   }
 
   void _saveSwitchState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('isEnabled', _isEnabled);
+    prefs.setBool('notifcationsEnabled', _notifcationsEnabled);
   }
 
   @override
@@ -41,7 +63,12 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
       Positioned(
         top: 60,
         left: 15,
-        child: Text('Sales Reporting', style: TextStyle(fontFamily: "Hind Kochi", fontSize: 18, fontWeight: FontWeight.bold )),),
+        child: Text('Sales Reporting',
+            style: TextStyle(
+                fontFamily: "Hind Kochi",
+                fontSize: 18,
+                fontWeight: FontWeight.bold)),
+      ),
       Positioned(
           top: 90,
           left: 15,
@@ -262,13 +289,77 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
         left: MediaQuery.of(context).size.width * 0.4,
         top: 0,
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.5,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.5)
-            ),
-          ),
-        ),
+            width: MediaQuery.of(context).size.width * 0.5,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
+            child: Stack(children: [
+              Positioned(
+                top: 6,
+                left: 10,
+                child: Text(
+                  "Inventory",
+                  style: settingsHeader.copyWith(color: Colors.white),
+                ),
+              ),
+              Positioned(
+                top: 50,
+                left: 10,
+                child: Text('Notifications',
+                    style: TextStyle(
+                        fontFamily: "Hind Kochi",
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+              ),
+              Positioned(
+                top: 80,
+                left: 10,
+                child: Row(
+                  children: [
+                    Text(
+                      "Enable Low Quantity Notifications",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Switch(
+                      value: _notifcationsEnabled,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _notifcationsEnabled = value;
+                        });
+                        _saveSwitchState();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                  top: 130,
+                  left: 10,
+                  child: Row(
+                    children: [
+                      Text(
+                        "Low Quantity Threshold",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Padding(padding: EdgeInsets.all(8)),
+                      SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: TextField(
+                          focusNode: _quantityFocusNode,
+                          controller: quantityController,
+                          decoration: InputDecoration(
+                            hintText: "#",
+                            hintStyle: TextStyle(color: Colors.white),
+                            border: OutlineInputBorder(),
+                          ),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ))
+            ])),
+      ),
     ]);
   }
 }
