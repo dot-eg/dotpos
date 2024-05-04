@@ -1,15 +1,79 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import "analytics_service.dart";
+import "dart:async";
 
 var db = FirebaseFirestore.instance;
+List<String> userIDs = [];
+List<String> users = [];
 List<String> products = [];
 List<String> productIds = [];
 List<String> customerIds = [];
 List<String> customers = [];
+Map<String, String> usermap = {};
 Map<String, String> productMap = {};
 Map<String, String> customerMap = {};
 List<String> outofstock = [];
+
+Future<List<String>> retreiveUserIDs() async {
+  try {
+    final collectionRef = db.collection('User');
+    QuerySnapshot querySnapshot = await collectionRef.get();
+    for(var doc in querySnapshot.docs){
+      userIDs.add(doc.id);
+    }
+    print(userIDs);
+    return userIDs;
+  } catch (e) {
+    print(e);
+    return [];
+  }
+}
+
+Future<List<String>> getuserNames() async {
+  try {
+    final collectionRef = db.collection('User');
+    QuerySnapshot querySnapshot = await collectionRef.get();
+    for(var doc in querySnapshot.docs){
+      final data = doc.data() as Map<String, dynamic>;
+      users.add(data['DisplayName'] as String);
+    }
+    print(users);
+    return users;
+  } catch (e) {
+    print(e);
+    return [];
+  }
+}
+
+Future<Map<String, String>> createUserMap() async {
+  List<String> names = await getuserNames();
+  List<String> ids = await retreiveUserIDs();
+
+  if (names.length != ids.length) {
+    throw Exception('Mismatch between user names and IDs');
+  }
+
+  for (int i = 0; i < names.length; i++) {
+    usermap[names[i]] = ids[i];
+  }
+
+  return usermap;
+}
+
+
+Future<Map<String, dynamic>> retrieveUserData(String docId) async {
+  try {
+    final UdocRef = db.collection('User').doc(docId);
+    DocumentSnapshot userdoc = await UdocRef.get();
+    final userdata = userdoc.data() as Map<String, dynamic>;
+    print(userdata);
+    return userdata;
+  } catch (e) {
+    print(e);
+    return {};
+  }
+}
 
 Future<List<String>> retrieveProductName() async {
   try {
@@ -183,6 +247,7 @@ void retrieveAllData() async {
   await createProductMap();
   await createCustomerMap();
   await getOutofStock();
+  await createUserMap();
 }
 
 void refreshAllData() async {
@@ -318,4 +383,6 @@ Stream<DocumentSnapshot> getSalesReport() {
     .doc(AnalyticsService().currentdoc)
     .snapshots();
 }
+
+
     

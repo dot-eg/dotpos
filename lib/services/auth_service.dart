@@ -6,10 +6,12 @@ import '../ui/login_screen.dart';
 
 bool isLoggedIn = false;
 String currentUser = "";
+String displayname = "";
 DateTime loginTime = DateTime.now();
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   
 
   Future<String> login(GlobalKey<FormState> formkey, String username, String pass, BuildContext context) async {
@@ -22,6 +24,14 @@ class AuthService {
       if (user != null) {
         isLoggedIn = true;
         currentUser = username;
+        final QuerySnapshot result = await _firestore
+          .collection('User')
+          .where('Email', isEqualTo: username)
+          .get();
+        final List<DocumentSnapshot> documents = result.docs;
+        if (documents.length == 1) {
+          displayname = documents.first.get('DisplayName');
+        }
         loginTime = DateTime.now();
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.of(context).pushReplacement(
@@ -50,7 +60,7 @@ class AuthService {
     );
     }
 
-  Future<String> AddUser(String username, String pass, BuildContext context) async {
+  Future<String> AddUser(String displayname, String username, String pass, BuildContext context) async {
     try {
       final UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: username,
@@ -63,6 +73,7 @@ class AuthService {
         final lastDoc = querySnapshot.docs.first;
         final int nextDocId = int.parse(lastDoc.id) + 1;
         await firestore.collection('User').doc(nextDocId.toString()).set({
+          'DisplayName' : displayname,
           'Email': username,
         });
         return "User Added";

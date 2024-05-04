@@ -95,6 +95,7 @@ class _UsersState extends State<Users> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
+                              String displayname = '';
                               String username = '';
                               String password = '';
                               return Dialog(
@@ -107,7 +108,14 @@ class _UsersState extends State<Users> {
                                     children: <Widget>[
                                       TextFormField(
                                         decoration: InputDecoration(
-                                            labelText: 'Username'),
+                                          labelText: 'Display Name'),
+                                          onChanged: (value) {
+                                            displayname = value;
+                                          },
+                                        ),
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                            labelText: 'Email'),
                                         onChanged: (value) {
                                           username = value;
                                         },
@@ -133,7 +141,7 @@ class _UsersState extends State<Users> {
                                       child: Text('Add'),
                                       onPressed: () async {
                                         String result =
-                                            await authService.AddUser(
+                                            await authService.AddUser(displayname,
                                           username,
                                           password,
                                           context,

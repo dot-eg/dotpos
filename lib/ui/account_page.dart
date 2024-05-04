@@ -49,7 +49,7 @@ class _AccountPageState extends State<AccountPage> {
                 width: MediaQuery.of(context).size.width * 0.21809896,
                 height: MediaQuery.of(context).size.height * 0.03784057,
                 child: Text(
-                  'Hello!, $currentUser',
+                  'Hello $displayname!',
                   style: settingsHeader.copyWith(fontWeight: FontWeight.normal),
                 ),
               ),
