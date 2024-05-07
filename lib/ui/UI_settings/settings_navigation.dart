@@ -62,7 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.analytics_outlined, color: Colors.white,),
-                  label: Text('Analytics', style: settingsNavTextStyle,),
+                  label: Text('Analytics & Inventory', style: settingsNavTextStyle,),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.info, color: Colors.white,),
