@@ -462,7 +462,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               top: 23,
                               child: Container(
                                 width: screenSize.width *
-                                    0.17578125, // Set the width as needed
+                                    0.17578125,
                                 height: screenSize.height * 0.05171544,
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.black)),
@@ -470,7 +470,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: DropdownButton<String>(
                                     isExpanded:
-                                        true, // This will make the dropdown menu item take the full width of its parent
+                                        true,
                                     value: MethoddropdownValue,
                                     icon: const Icon(Icons.arrow_drop_down),
                                     iconSize: 24,
@@ -534,7 +534,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               top: 23,
                               child: Container(
                                 width: screenSize.width *
-                                    0.17578125, // Set the width as needed
+                                    0.17578125,
                                 height: screenSize.height * 0.05171544,
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.black)),
@@ -542,7 +542,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: DropdownButton<String>(
                                     isExpanded:
-                                        true, // This will make the dropdown menu item take the full width of its parent
+                                        true,
                                     value: TaxesdropdownValue,
                                     icon: const Icon(Icons.arrow_drop_down),
                                     iconSize: 24,
@@ -727,12 +727,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                         ),
                         Divider(
-                          color: Colors.white, // Adjust the color as needed
-                          thickness: 1.0, // Adjust the thickness as needed
+                          color: Colors.white,
+                          thickness: 1.0,
                         ),
                         Container(
                           margin: EdgeInsets.only(
-                              top: 5.0), // Adjust the value as needed
+                              top: 5.0),
                           child: Align(
                             alignment: Alignment(-1, 0.0),
                             child: Text(
@@ -743,12 +743,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                         ),
                         Divider(
-                          color: Colors.white, // Adjust the color as needed
-                          thickness: 1.0, // Adjust the thickness as needed
+                          color: Colors.white,
+                          thickness: 1.0,
                         ),
                         Container(
                           margin: EdgeInsets.only(
-                              top: 5.0), // Adjust the value as needed
+                              top: 5.0),
                           child: Align(
                             alignment: Alignment(-1, 0.0),
                             child: Text(
@@ -759,12 +759,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                         ),
                         Divider(
-                          color: Colors.white, // Adjust the color as needed
-                          thickness: 1.0, // Adjust the thickness as needed
+                          color: Colors.white,
+                          thickness: 1.0, 
                         ),
                         Container(
                           margin: EdgeInsets.only(
-                              top: 5.0), // Adjust the value as needed
+                              top: 5.0),
                           child: Align(
                             alignment: Alignment(-1, 0.0),
                             child: Text(

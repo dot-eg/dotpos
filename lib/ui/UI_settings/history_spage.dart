@@ -14,11 +14,11 @@ class History extends StatelessWidget {
             ),
           ),
         Positioned(
-          top: MediaQuery.of(context).size.height * 0.08829465, // Set the top position to the desired value
-          left: MediaQuery.of(context).size.width * 0.01302083, // Set the left position to the desired value
+          top: MediaQuery.of(context).size.height * 0.08829465,
+          left: MediaQuery.of(context).size.width * 0.01302083,
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.03784057, // Set the height to the desired value
-            width: MediaQuery.of(context).size.width * 0.16276042, // Set the width to the desired value
+            height: MediaQuery.of(context).size.height * 0.03784057,
+            width: MediaQuery.of(context).size.width * 0.16276042,
             child: ElevatedButton(
               onPressed: () {
                 showDialog(
