@@ -245,8 +245,8 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
           child: Column(
             children: [
               Divider(
-                color: Colors.black, // Adjust the color as needed
-                thickness: 1.0, // Adjust the thickness as needed
+                color: Colors.black,
+                thickness: 1.0,
               ),
               Positioned(
                 top: 20,

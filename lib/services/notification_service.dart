@@ -25,7 +25,6 @@ class NotificationService {
         showDialog(
           context: con,
           builder: (context) {
-            // Change this line
             return AlertDialog(
               title: Text('Low Quantity Alert'),
               content: Text('You are running low on stock for $lowquantity'),

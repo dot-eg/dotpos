@@ -585,7 +585,7 @@ class _InventoryPageState extends State<InventoryPage> {
                   color: Colors.white.withOpacity(0.2),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(8.0), // Adjust the padding as needed
+                  padding: EdgeInsets.all(8.0),
                   child: ListView.builder(
                     itemCount: lowquantityProducts.length,
                     itemBuilder: (context, index) {

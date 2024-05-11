@@ -252,15 +252,3 @@ class ProductPage extends StatelessWidget {
     );
   }
 }
-
-// Positioned(
-//               top: 10,
-//               left: 10,
-//               child: Text('Name: ${productData['Name'] ?? 'Default Name'}'),
-//             ),
-//             Positioned(
-//               top: 30,
-//               left: 10,
-//               child: Text('Price: ${productData['Price'] ?? 'Default Name'}'),
-//             ),
-//             // Add more 

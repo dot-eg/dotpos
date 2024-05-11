@@ -61,7 +61,6 @@ class _UsersState extends State<Users> {
                         DataColumn(
                           label: Text('Email'),
                         ),
-                        // Add more columns as needed
                       ],
                       rows:
                           snapshot.data!.asMap().entries.map<DataRow>((entry) {
@@ -72,7 +71,6 @@ class _UsersState extends State<Users> {
                           cells: <DataCell>[
                             DataCell(Text(user.uid)),
                             DataCell(Text(user.email)),
-                            // Add more cells as needed
                           ],
                           onSelectChanged: (bool? value) {
                             if (value != null) {

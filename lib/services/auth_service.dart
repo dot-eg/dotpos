@@ -141,12 +141,12 @@ class AuthService {
 class User {
   final String uid;
   final String email;
-  // Add more fields as needed
+  
 
   User({
     required this.uid,
     required this.email,
-    // Add more fields as needed
+    
   });
 }
 
@@ -157,8 +157,8 @@ Future<List<User>> getUsersFromFirestore() async {
   return querySnapshot.docs.map((doc) {
     return User(
       uid: doc.id,
-      email: doc['Email'], // Replace with your field name
-      // Add more fields as needed
+      email: doc['Email'],
+
     );
   }).toList();
 }

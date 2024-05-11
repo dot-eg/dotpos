@@ -280,12 +280,12 @@ class _ProductHomePageState extends State<ProductHomePage> {
                             ),
                           ),
                           Divider(
-                            color: Colors.white, // Adjust the color as needed
-                            thickness: 1.0, // Adjust the thickness as needed
+                            color: Colors.white,
+                            thickness: 1.0,
                           ),
                           Container(
                             margin: EdgeInsets.only(
-                                top: 5.0), // Adjust the value as needed
+                                top: 5.0),
                             child: Align(
                               alignment: Alignment(-1, 0.0),
                               child: Text(
@@ -296,8 +296,8 @@ class _ProductHomePageState extends State<ProductHomePage> {
                             ),
                           ),
                           Divider(
-                            color: Colors.white, // Adjust the color as needed
-                            thickness: 1.0, // Adjust the thickness as needed
+                            color: Colors.white,
+                            thickness: 1.0,
                           ),
                         ],
                       );
